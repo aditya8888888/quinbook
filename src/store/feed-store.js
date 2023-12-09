@@ -8,6 +8,9 @@ const useFeedStore = defineStore('feed', () => {
 
     const getResponse = ref([])
 
+    const useFetchUtil = () => { }
+    
+
     return {
     }
     
