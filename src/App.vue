@@ -1,5 +1,6 @@
 <template>
     <HeaderComponent></HeaderComponent>
+    <FeedComponent />
 </template>
 
 <script>
