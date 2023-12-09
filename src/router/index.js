@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import PostPage from "@/page/postupload/PostPage.vue"
+import PostPage from "@/page/PostPage.vue"
+
+
 
 const routes = [
   {

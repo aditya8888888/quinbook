@@ -66,14 +66,16 @@ export default defineComponent({
     border-radius: 10px;
     border: 2px solid #333;
 
-    button {
+   
+}
+
+.search-bar  button {
         background-color: white;
         color: black;
         padding: 0% 2%;
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
     }
-}
 
 .search-bar input {
     width: 100%;

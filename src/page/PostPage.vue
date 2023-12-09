@@ -1,4 +1,5 @@
 <template>
+   
     <div class="post-page">
       <div class="user-info">
         <div class="profile-pic">
@@ -42,7 +43,9 @@
   <script>
   import { ref } from 'vue';
   
+  
   export default {
+   
     setup() {
       const user = ref({
         profilePic: 'https://placekitten.com/50/50', // Replace with the actual URL for the profile picture
