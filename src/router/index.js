@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import PostPage from "@/page/postupload/PostPage.vue"
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
+  {
+    path: '/',
+    name: 'post',
+    component: PostPage
+  },
 ]
 
 const router = createRouter({
