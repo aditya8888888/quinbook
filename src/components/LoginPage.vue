@@ -10,9 +10,10 @@
       </div>
     </div>
   </div>
+
   <center>
     <div class="maindiv">
-      <form class="max-w-sm mx-auto">
+      <div class="max-w-sm mx-auto">
         <div class="mb-5">
           <label
             for="email"
@@ -25,6 +26,7 @@
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="name@flowbite.com"
             required
+            v-model="email"
           />
         </div>
         <div class="mb-5">
@@ -38,33 +40,36 @@
             id="password"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
+            v-model="password"
           />
         </div>
         <div>
           <button
             type="submit"
             class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 mb-4"
+            @click="handleLogin"
           >
             Login
           </button>
         </div>
         <div>
           <button
-            type="submit"
             class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+            @click="handleLoginGoogle"
           >
             Login with Google
           </button>
         </div>
         <div style="padding-top: 10px">
-          Don't have an account ? &nbsp; <span>Register Now</span>
+          Don't have an account ? &nbsp;
+          <span><router-link to="/signup">Register Now</router-link></span>
         </div>
-      </form>
+      </div>
     </div>
   </center>
 </template>
 
-<script></script>
+<script src="@/js/loginpage.js"></script>
 
 <style scoped>
 .maindiv {

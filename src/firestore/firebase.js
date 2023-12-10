@@ -1,11 +1,11 @@
 import { initializeApp } from "firebase/app";
+import { useCookies } from "vue3-cookies";
 import {
   GoogleAuthProvider,
   getAuth,
   signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
 import {
@@ -40,13 +40,21 @@ const signInWithGoogle = async () => {
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
+     const response =  await addDoc(collection(db, "users"), {
         uid: user.uid,
         name: user.displayName,
         authProvider: "google",
         email: user.email,
-      });
+     });
+    const idToken = response._tokenResponse.idToken;
+     const userId = res.user.uid; 
+
+      
+      const { cookies } = useCookies();
+      cookies.set("token", idToken);
+      cookies.set("userId", userId);
     }
+     
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -55,7 +63,16 @@ const signInWithGoogle = async () => {
 
 const logInWithEmailAndPassword = async (email, password) => {
   try {
-    await signInWithEmailAndPassword(auth, email, password);
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      console.log("login reponse:" ,response)
+      const idToken = response._tokenResponse.idToken;
+       const userId = response.user.uid; 
+
+      
+      const { cookies } = useCookies();
+      cookies.set("token", idToken);
+      cookies.set("userId", userId);
+      
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -72,6 +89,12 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       authProvider: "local",
       email,
     });
+    const idToken = res._tokenResponse.idToken;
+    const userId = res.user.uid; 
+      const { cookies } = useCookies();
+      console.log("resgistration" + res)
+    cookies.set("token", idToken);
+    cookies.set("userId", userId);
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -98,7 +121,7 @@ export {
   signInWithGoogle,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
-  sendPasswordReset,
+//   sendPasswordReset,
   logout,
 };
 
