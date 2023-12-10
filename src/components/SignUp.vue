@@ -10,9 +10,10 @@
       </div>
     </div>
   </div>
+
   <center>
     <div class="maindiv">
-      <form class="max-w-sm mx-auto">
+      <div class="max-w-sm mx-auto">
         <div class="mb-5">
           <label
             for="name"
@@ -24,6 +25,7 @@
             id="email"
             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:shadow-sm-light"
             required
+            v-model="name"
           />
         </div>
         <div class="mb-5">
@@ -38,6 +40,7 @@
             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:shadow-sm-light"
             placeholder="name@flowbite.com"
             required
+            v-model="email"
           />
         </div>
         <div class="mb-5">
@@ -51,13 +54,14 @@
             id="password"
             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:shadow-sm-light"
             required
+            v-model="password"
           />
         </div>
 
         <div>
           <button
-            type="submit"
             class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 mb-2"
+            @click="handleSignup"
           >
             Register
           </button>
@@ -71,14 +75,16 @@
           </button>
         </div>
         <div class="mt-2">
-          Already have an Account ? &nbsp; <span>Login Now</span>
+          Already have an Account ? &nbsp;
+          <span><router-link to="/login">Login Now</router-link></span>
         </div>
-      </form>
+      </div>
     </div>
   </center>
+
 </template>
 
-<script></script>
+<script src="@/js/signup.js"></script>
 <style>
 .maindiv {
   width: 350px;
