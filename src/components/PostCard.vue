@@ -93,12 +93,12 @@
                 />
               </svg>
             </div>
-            <div class="pl-2">Comment</div>
+            <div class="pl-2" @click="openComments">Comment</div>
           </div>
         </div>
         <form class="pt-4">
           <div
-            class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
+            class="w-full mb-1 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
           >
             <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
               <label for="comment" class="sr-only">Your comment</label>
@@ -119,6 +119,44 @@
               >
                 Post comment
               </button>
+            </div>
+          </div>
+
+          <div
+            class="CommentSection"
+            style="max-height: 12rem; overflow: auto"
+            v-show="showComment"
+          >
+            <div>
+              <div class="flex items-start gap-2.5 pt-2">
+                <img
+                  class="w-8 h-8 rounded-full"
+                  src="/docs/images/people/profile-picture-3.jpg"
+                  alt="Jese image"
+                />
+                <div class="flex flex-col gap-1 w-full max-w-[320px]">
+                  <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                    <span
+                      class="text-sm font-semibold text-gray-900 dark:text-white"
+                      >Bonnie Green</span
+                    >
+                    <span
+                      class="text-sm font-normal text-gray-500 dark:text-gray-400"
+                      >11:46</span
+                    >
+                  </div>
+                  <div
+                    class="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700"
+                  >
+                    <p
+                      class="text-sm font-normal text-gray-900 dark:text-white"
+                    >
+                      That's awesome. I think our users will really appreciate
+                      the improvements.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </form>
@@ -163,9 +201,6 @@
             Paste the caption here
           </h5>
         </a>
-        <div class="flex items-center mt-2.5 mb-5">
-          <div class="flex items-center space-x-1 rtl:space-x-reverse"></div>
-        </div>
         <div class="flex items-center justify-between">
           <div
             style="display: flex; cursor: pointer"
@@ -237,6 +272,39 @@
               >
                 Post comment
               </button>
+            </div>
+          </div>
+          <div class="CommentSection" style="max-height: 12rem; overflow: auto">
+            <div>
+              <div class="flex items-start gap-2.5 pt-2">
+                <img
+                  class="w-8 h-8 rounded-full"
+                  src="/docs/images/people/profile-picture-3.jpg"
+                  alt="Jese image"
+                />
+                <div class="flex flex-col gap-1 w-full max-w-[320px]">
+                  <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                    <span
+                      class="text-sm font-semibold text-gray-900 dark:text-white"
+                      >Bonnie Green</span
+                    >
+                    <span
+                      class="text-sm font-normal text-gray-500 dark:text-gray-400"
+                      >11:46</span
+                    >
+                  </div>
+                  <div
+                    class="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700"
+                  >
+                    <p
+                      class="text-sm font-normal text-gray-900 dark:text-white"
+                    >
+                      That's awesome. I think our users will really appreciate
+                      the improvements.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </form>

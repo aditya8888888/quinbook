@@ -1,22 +1,25 @@
 <template>
-  <!-- <NavBar />
-  <PostCard /> -->
+  <!-- <NavBar /> -->
+  <PostCard />
   <!-- <LoginPage /> -->
-  <SignUp />
+  <!-- <SignUp /> -->
+  <!-- <AdCard /> -->
 </template>
 
 <script>
 // import NavBar from "./components/NavBar.vue";
-// import PostCard from "./components/PostCard.vue";
+import PostCard from "./components/PostCard.vue";
 // import LoginPage from "./components/LoginPage.vue";
-import SignUp from "./components/SignUp.vue";
+// import SignUp from "./components/SignUp.vue";
+// import AdCard from "./components/AdCard.vue";
 export default {
   name: "App",
   components: {
     // NavBar,
-    // PostCard,
+    PostCard,
     // LoginPage,
-    SignUp,
+    // SignUp,
+    // AdCard,
   },
 };
 </script>
