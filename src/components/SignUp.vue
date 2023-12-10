@@ -81,6 +81,7 @@
       </div>
     </div>
   </center>
+
 </template>
 
 <script src="@/js/signup.js"></script>

@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { useCookies } from "vue3-cookies";
+import useUserStore from "@/store/user-store";
 import {
   GoogleAuthProvider,
   getAuth,
@@ -34,6 +35,7 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
 const signInWithGoogle = async () => {
+    const userStore = useUserStore()
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
@@ -52,7 +54,9 @@ const signInWithGoogle = async () => {
       
       const { cookies } = useCookies();
       cookies.set("token", idToken);
-      cookies.set("userId", userId);
+        cookies.set("userId", userId);
+        userStore.token.value = idToken;
+        userStore.userId.value = userId;
     }
      
   } catch (err) {
@@ -62,6 +66,7 @@ const signInWithGoogle = async () => {
 };
 
 const logInWithEmailAndPassword = async (email, password) => {
+    const userStore = useUserStore()
   try {
       const response = await signInWithEmailAndPassword(auth, email, password);
       console.log("login reponse:" ,response)
@@ -72,6 +77,8 @@ const logInWithEmailAndPassword = async (email, password) => {
       const { cookies } = useCookies();
       cookies.set("token", idToken);
       cookies.set("userId", userId);
+      userStore.token.value = idToken;
+        userStore.userId.value = userId;
       
   } catch (err) {
     console.error(err);
@@ -80,6 +87,7 @@ const logInWithEmailAndPassword = async (email, password) => {
 };
 
 const registerWithEmailAndPassword = async (name, email, password) => {
+    const userStore = useUserStore()
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
@@ -94,7 +102,9 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       const { cookies } = useCookies();
       console.log("resgistration" + res)
     cookies.set("token", idToken);
-    cookies.set("userId", userId);
+      cookies.set("userId", userId);
+      userStore.token.value = idToken;
+        userStore.userId.value = userId;
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -112,7 +122,11 @@ const registerWithEmailAndPassword = async (name, email, password) => {
 // };
 
 const logout = () => {
-  signOut(auth);
+    const { cookies } = useCookies();
+    signOut(auth);
+    cookies.remove("token")
+    cookies.remove("userId")
+    
 };
 
 export {
