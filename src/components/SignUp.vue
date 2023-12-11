@@ -76,7 +76,7 @@
         </div>
         <div class="mt-2">
           Already have an Account ? &nbsp;
-          <span><router-link to="/login">Login Now</router-link></span>
+          <span><router-link to="/" class="text-blue-500 underline hover:underline">Login Now</router-link></span>
         </div>
       </div>
     </div>
