@@ -1,55 +1,43 @@
 <template>
-  <div class="profile-page">
-    <div class="profile-image-container">
-      <img
-        src="https://m.media-amazon.com/images/M/MV5BMmM3MWU1NWQtMDc5ZC00YzgzLTljZGItOTVkMDJlNzkxY2MxXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_FMjpg_UX1000_.jpg"
-        alt="Profile Image"
-        class="profile-image"
-      />
-    </div>
-    <div class="profile-info">
-      <h2 class="profile-name">Rahul Gandhi</h2>
-      <p class="profile-description">
-        Pappu, member of Parliament, Son, COmedian.
-      </p>
-    </div>
-    <div class="profile-actions">
-      <button class="button edit-profile">Edit Profile</button>
-      <button class="button add-post">Add Post</button>
-      <button class="button friends">Friends</button>
-    </div>
-    <hr />
-    <div class="profile-posts">
-      <div class="post-card">
-        <div class="post-user-image">
-          <img
-            src="https://m.media-amazon.com/images/M/MV5BMmM3MWU1NWQtMDc5ZC00YzgzLTljZGItOTVkMDJlNzkxY2MxXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_FMjpg_UX1000_.jpg"
-            alt="Profile Image"
-            class="post-image"
-          />
-        </div>
-        <div class="post-content">
-          <div class="post-details">
-            <h3 class="post-username">Rahul Gandhi</h3>
-            <p class="post-caption">Modi hai to mumkin hai</p>
-          </div>
-
-          <img
-            src="https://www.jansatta.com/wp-content/uploads/2023/11/Rahul-Gandhi-Rajasthan.jpg?w=768"
-            alt="Post Media"
-            class="post-media"
-          />
-
-          <div class="post-interaction">
-            <button class="button like">Like</button>
-            <button class="button comment">Comment</button>
-          </div>
+  <center>
+    <div
+      class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    >
+      <div class="flex flex-col items-center pb-10 justify-end px-4 pt-4">
+        <img
+          class="w-24 h-24 mb-3 rounded-full shadow-lg"
+          src="https://m.media-amazon.com/images/M/MV5BMmM3MWU1NWQtMDc5ZC00YzgzLTljZGItOTVkMDJlNzkxY2MxXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_FMjpg_UX1000_.jpg"
+          alt="Bonnie image"
+        />
+        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+          User Name
+        </h5>
+        <span class="text-sm text-gray-500 dark:text-gray-400"
+          >Description</span
+        >
+        <div class="flex mt-4 md:mt-6">
+          <button
+            class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 m-2"
+          >
+            Edit Profile
+          </button>
+          <button
+            class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-blue-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 m-2"
+          >
+            Add Post
+          </button>
+          <button
+            class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 m-2"
+          >
+            Friends
+          </button>
         </div>
       </div>
     </div>
-  </div>
+    <PostCard />
+  </center>
 </template>
-<script></script>
+<script src="../js/profilepage"></script>
 <style scoped>
 .profile-page {
   display: flex;

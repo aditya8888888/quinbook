@@ -1,68 +1,26 @@
 <template>
-  <div class="activity-page">
-    <h2>Activity Page</h2>
-    <div v-if="userActivity.length === 0" class="no-activity">
-      No activity yet.
-    </div>
-    <div v-else>
-      <div
-        v-for="(activity, index) in sortedActivity"
-        :key="index"
-        :class="['activity-card', activity.type]"
-      >
-        <strong>{{ activity.user.name }} &nbsp;</strong>
-        <p>{{ getActivityText(activity) }}</p>
-        <div class="timestamp">{{ formatTimestamp(activity.timestamp) }}</div>
+  <center>
+    <div class="activity-page">
+      <h2>Activity Page</h2>
+      <div v-if="userActivity.length === 0" class="no-activity">
+        No activity yet.
+      </div>
+      <div v-else>
+        <div
+          v-for="(activity, index) in sortedActivity"
+          :key="index"
+          :class="['activity-card', activity.type]"
+        >
+          <strong>{{ activity.user.name }} &nbsp;</strong>
+          <p>{{ getActivityText(activity) }}</p>
+          <div class="timestamp">{{ formatTimestamp(activity.timestamp) }}</div>
+        </div>
       </div>
     </div>
-  </div>
+  </center>
 </template>
 
-<script>
-import { ref, computed } from "vue";
-
-export default {
-  setup() {
-    const userActivity = ref([
-      {
-        type: "like",
-        user: { name: "John", avatar: "https://via.placeholder.com/30" },
-        timestamp: Date.now() - 60000,
-      },
-      {
-        type: "comment",
-        user: { name: "Alice", avatar: "https://via.placeholder.com/30" },
-        comment: "Great post!",
-        timestamp: Date.now() - 120000,
-      },
-    ]);
-
-    const sortedActivity = computed(() => {
-      return userActivity.value
-        .slice()
-        .sort((a, b) => b.timestamp - a.timestamp);
-    });
-
-    const formatTimestamp = (timestamp) => {
-      const date = new Date(timestamp);
-      return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-    };
-
-    const getActivityText = (activity) => {
-      return activity.type === "like"
-        ? "liked your post."
-        : `commented: "${activity.comment}"`;
-    };
-
-    return {
-      userActivity,
-      sortedActivity,
-      formatTimestamp,
-      getActivityText,
-    };
-  },
-};
-</script>
+<script src="../js/activitydetails"></script>
 
 <style scoped>
 .activity-page {
@@ -75,6 +33,7 @@ export default {
 }
 
 .activity-card {
+  max-width: 30rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

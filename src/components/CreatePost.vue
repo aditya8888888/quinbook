@@ -1,87 +1,58 @@
 <template>
-  <div class="head">
-    <h1 class="title">What's Up?</h1>
-    <div class="create-post">
-      <div class="avatar">
-        <img
-          src="https://m.media-amazon.com/images/M/MV5BMmM3MWU1NWQtMDc5ZC00YzgzLTljZGItOTVkMDJlNzkxY2MxXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_FMjpg_UX1000_.jpg"
-          alt="User Avatar"
-        />
-      </div>
-      <div class="post-form">
-        <textarea
-          class="text-area"
-          v-model="text"
-          placeholder="What's on your mind, Rahul Gandhi?"
-        ></textarea>
-        <div class="media-input">
-          <label for="media">Media:</label>
+  <center>
+    <div class="head">
+      <h1 class="title">Create Post</h1>
+      <div class="create-post">
+        <div class="post-form">
+          <div class="mb-6">
+            <label
+              for="large-input"
+              class="block mb-2 text-sm font-medium text-white-900 dark:text-white"
+              >Describe your story!!</label
+            >
+            <input
+              v-model="text"
+              type="text"
+              id="large-input"
+              class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
+          <label
+            class="block mb-2 text-sm font-medium text-white-900 dark:text-white"
+            for="media"
+            >Upload file</label
+          >
           <input
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 p-2"
             type="file"
             accept="image/*"
             name="image"
             id="file"
             @change="handleFileChange"
           />
+          <button
+            type="button"
+            class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+          >
+            Post
+          </button>
         </div>
-        <button @click="uploadImage">Post</button>
       </div>
     </div>
-  </div>
+  </center>
 </template>
 
-<script>
-import { ref } from "vue";
-import storage from "@/js/fireBase.js";
-export default {
-  setup() {
-    const selectedFile = ref(null);
-
-    const handleFileChange = (event) => {
-      console.log(event);
-      const file = event.target.files[0];
-      console.log(file);
-      selectedFile.value = file;
-    };
-    const uploadImage = async () => {
-      if (selectedFile.value) {
-        const storageRef = await storage.StorageRef(
-          storage.storage,
-          selectedFile.value.name
-        );
-        await storage
-          .uploadBytes(storageRef, selectedFile.value)
-          .then((snapshot) => {
-            console.log("Uploaded a file ", snapshot);
-            storage
-              .getDownloadURL(
-                storage.StorageRef(storage.storage, selectedFile.value.name)
-              )
-              .then((url) => {
-                console.log(url);
-              })
-              .catch(() => {});
-          });
-      }
-    };
-    return {
-      handleFileChange,
-      uploadImage,
-      selectedFile,
-    };
-  },
-};
-</script>
+<script src="../js/createpost"></script>
 
 <style scoped>
 .head {
   background-color: #2d3748;
   color: white;
-  padding: 20px;
+  padding: 10px;
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-bottom: 20px;
 }
 
@@ -143,37 +114,6 @@ button {
 button:hover {
   background-color: #2e3a52;
 }
-/* @media only screen and (max-width: 360px) {
-  .create-post {
-    flex-direction: column;
-    align-items: center;
-  }
- 
-  .post-form {
-    width: 50%;
-    
-  }
-} */
-
-/* @media only screen and (max-width: 480px) {
-  .create-post {
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: flex-start;
-  }
- 
-  .post-form {
-    width: 70%;
-  }
-  .media-input{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  button{
-    margin-top: 30px;
-  }
-} */
 
 @media only screen and (max-width: 768px) {
   .create-post {
