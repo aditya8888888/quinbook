@@ -62,11 +62,20 @@
         </div>
         <div style="padding-top: 10px">
           Don't have an account ? &nbsp;
-          <span><router-link to="/signup">Register Now</router-link></span>
+          <span
+            ><router-link
+              to="/signup"
+              class="text-blue-500 underline hover:underline"
+              >Register Now</router-link
+            ></span
+          >
         </div>
       </div>
     </div>
   </center>
+
+  <div class="like-show">{{ likeCount }}</div>
+  <button class="like-btn" @click="onLikeClick">Like Button</button>
 </template>
 
 <script src="@/js/loginpage.js"></script>
