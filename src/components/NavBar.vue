@@ -19,36 +19,56 @@
           <div class="flex flex-shrink-0 items-center" style="color: white">
             Quinbook
           </div>
+
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
-              <a
-                v-for="item in navigation"
-                :key="item.name"
-                :href="item.href"
-                :class="[
-                  item.current
-                    ? 'bg-gray-900 text-white'
-                    : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                  'rounded-md px-3 py-2 text-sm font-medium',
-                ]"
-                :aria-current="item.current ? 'page' : undefined"
-                >{{ item.name }}</a
+              <router-link to="/home">
+                <div
+                  class="flex flex-shrink-0 items-center"
+                  style="color: white; cursor: pointer"
+                  @click="openhome"
+                >
+                  Home
+                </div>
+              </router-link>
+              <div
+                class="flex flex-shrink-0 items-center"
+                style="color: white; cursor: pointer"
+                @click="openprofile"
               >
+                Profile
+              </div>
+              <div
+                class="flex flex-shrink-0 items-center"
+                style="color: white; cursor: pointer"
+                @click="openfriends"
+              >
+                Friends
+              </div>
+              <div
+                class="flex flex-shrink-0 items-center"
+                style="color: white; cursor: pointer"
+                @click="opencreatepost"
+              >
+                Create Post
+              </div>
             </div>
           </div>
         </div>
         <div
           class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
         >
-          <button
-            type="button"
-            class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-          >
-            <span class="absolute -inset-1.5" />
-            <span class="sr-only">View notifications</span>
-            <BellIcon class="h-6 w-6" aria-hidden="true" />
-          </button>
+          <router-link to="/activity">
+            <button
+              type="button"
+              class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+            >
+              <span class="absolute -inset-1.5" />
 
+              <span class="sr-only">View notifications</span>
+              <BellIcon class="h-6 w-6" aria-hidden="true" />
+            </button>
+          </router-link>
           <!-- Profile dropdown -->
           <Menu as="div" class="relative ml-3">
             <div>
@@ -76,24 +96,28 @@
                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
                 <MenuItem v-slot="{ active }">
-                  <a
-                    href="#"
-                    :class="[
-                      active ? 'bg-gray-100' : '',
-                      'block px-4 py-2 text-sm text-gray-700',
-                    ]"
-                    >Your Profile</a
-                  >
+                  <router-link to="/profilepage">
+                    <div
+                      :class="[
+                        active ? 'bg-gray-100' : '',
+                        'block px-4 py-2 text-sm text-gray-700',
+                      ]"
+                    >
+                      Your Profile
+                    </div>
+                  </router-link>
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
-                  <a
-                    href="#"
-                    :class="[
-                      active ? 'bg-gray-100' : '',
-                      'block px-4 py-2 text-sm text-gray-700',
-                    ]"
-                    >Sign out</a
-                  >
+                  <router-link to="/">
+                    <div
+                      :class="[
+                        active ? 'bg-gray-100' : '',
+                        'block px-4 py-2 text-sm text-gray-700',
+                      ]"
+                    >
+                      Sign out
+                    </div>
+                  </router-link>
                 </MenuItem>
               </MenuItems>
             </transition>
@@ -104,26 +128,43 @@
 
     <DisclosurePanel class="sm:hidden">
       <div class="space-y-1 px-2 pb-3 pt-2">
-        <DisclosureButton
-          v-for="item in navigation"
-          :key="item.name"
-          as="a"
-          :href="item.href"
-          :class="[
-            item.current
-              ? 'bg-gray-900 text-white'
-              : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-            'block rounded-md px-3 py-2 text-base font-medium',
-          ]"
-          :aria-current="item.current ? 'page' : undefined"
-          >{{ item.name }}</DisclosureButton
+        <router-link to="/home">
+          <div
+            class="flex flex-shrink-0 items-center"
+            style="color: white; cursor: pointer"
+            @click="openhome"
+          >
+            Home
+          </div>
+        </router-link>
+        <div
+          class="flex flex-shrink-0 items-center"
+          style="color: white; cursor: pointer"
+          @click="openprofile"
         >
+          Profile
+        </div>
+        <div
+          class="flex flex-shrink-0 items-center"
+          style="color: white; cursor: pointer"
+          @click="openfriends"
+        >
+          Friends
+        </div>
+        <div
+          class="flex flex-shrink-0 items-center"
+          style="color: white; cursor: pointer"
+          @click="opencreatepost"
+        >
+          Create Post
+        </div>
       </div>
     </DisclosurePanel>
   </Disclosure>
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
 import {
   Disclosure,
   DisclosureButton,
@@ -135,10 +176,24 @@ import {
 } from "@headlessui/vue";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 
-const navigation = [
-  { name: "Home", href: "#", current: true },
-  { name: "Profile", href: "#", current: false },
-  { name: "Friends", href: "#", current: false },
-  { name: "Create Post", href: "#", current: false },
-];
+const router = useRouter();
+
+const openhome = () => {
+  router.push("/homepage");
+};
+
+const openprofile = () => {
+  router.push("/profilepage");
+};
+
+const openfriends = () => {
+  router.push("/friendspage");
+};
+
+const opencreatepost = () => {
+  router.push("/createpost");
+};
+// const openlogin = () => {
+//   router.push("/");
+// };
 </script>

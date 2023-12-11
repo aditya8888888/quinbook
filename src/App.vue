@@ -5,8 +5,10 @@
   <!-- <LoginPage />  -->
   <!-- <SignUp /> -->
   <!-- <ActivityDetails /> -->
-  <CreatePost />
+  <!-- <CreatePost /> -->
   <!-- <ProfilePage /> -->
+  <HomePage />
+  <router-view></router-view>
 </template>
 
 <script>
@@ -15,16 +17,19 @@
 // import PostCard from "./components/PostCard.vue";
 // import LoginPage from "./components/LoginPage.vue";
 // import SignUp from "./components/SignUp.vue";
-import CreatePost from "./components/CreatePost.vue";
+// import CreatePost from "./components/CreatePost.vue";
 // import ProfilePage from "./components/ProfilePage.vue";
+
+import HomePage from "./components/HomePage.vue";
 
 export default {
   name: "App",
   components: {
     // ActivityDetails,
-    CreatePost,
+    // CreatePost,
     // ProfilePage,
     // PostCard,
+    HomePage,
   },
 };
 </script>

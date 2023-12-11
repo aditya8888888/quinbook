@@ -1,7 +1,7 @@
 <template>
   <center>
     <div
-      class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+      class="mt-2 w-full max-w-lg bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
     >
       <div class="flex flex-col items-center pb-10 justify-end px-4 pt-4">
         <img
@@ -34,6 +34,15 @@
         </div>
       </div>
     </div>
+    <h1
+      class="mt-2 mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-4xl"
+    >
+      <span
+        class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
+        >Your Posts</span
+      >
+    </h1>
+
     <PostCard />
   </center>
 </template>
