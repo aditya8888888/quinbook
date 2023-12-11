@@ -22,11 +22,10 @@
 
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
-              <router-link to="/home">
+              <router-link to="/homepage">
                 <div
                   class="flex flex-shrink-0 items-center"
                   style="color: white; cursor: pointer"
-                  @click="openhome"
                 >
                   Home
                 </div>
@@ -129,11 +128,10 @@
 
     <DisclosurePanel class="sm:hidden">
       <div class="space-y-1 px-2 pb-3 pt-2">
-        <router-link to="/home">
+        <router-link to="/homepage">
           <div
             class="flex flex-shrink-0 items-center"
             style="color: white; cursor: pointer"
-            @click="openhome"
           >
             Home
           </div>
@@ -185,9 +183,9 @@ const handleSignOut = () => {
   router.push("/");
 };
 
-const openhome = () => {
-  router.push("/homepage");
-};
+// const openhome = () => {
+//   router.push("/homepage");
+// };
 
 const openprofile = () => {
   router.push("/profilepage");

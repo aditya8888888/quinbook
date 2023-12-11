@@ -1,6 +1,8 @@
 import { ref, computed } from "vue";
+import NavBar from "../components/NavBar.vue";
 
 export default {
+  components: { NavBar },
   setup() {
     const userActivity = ref([
       {

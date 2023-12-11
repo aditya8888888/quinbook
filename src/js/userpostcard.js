@@ -7,16 +7,13 @@ export default {
   setup() {
     const showComment = ref(false);
 
-    const useFeed = useFeedStore();
-    const data = computed(() => useFeed.feedResponse);
-    console.log(data);
+    const useProfileFeed = useFeedStore();
 
-    const openComments = async () => {
-      showComment.value = !showComment.value;
-    };
+    const profileData = computed(() => useProfileFeed.feedUserProfileResponse);
+    console.log(profileData);
 
-    const getFeed = async (userId) => {
-      const url = `http://10.20.3.178:8081/feed/get-feed-by-userid?userId=${userId}`;
+    const getUserProfileFeed = async (userId) => {
+      const url = `http://10.20.3.178:8081/post/get-post-by-userid?userId=${userId}`;
 
       try {
         await FETCH_UTIL(
@@ -24,7 +21,7 @@ export default {
           {},
           "GET",
           (jsonResponse) => {
-            useFeed.feedResponse = jsonResponse;
+            useProfileFeed.feedUserProfileResponse = jsonResponse;
             console.log(jsonResponse);
           },
           () => {
@@ -37,15 +34,18 @@ export default {
     };
 
     onBeforeMount(() => {
-      const userId = "57a560f9-3233-43fe-bc5f-9dd881761451";
-      getFeed(userId);
+      const userId = "6f83ed2e-370b-4f7a-9a51-1a76ad6a9566";
+      getUserProfileFeed(userId);
     });
+
+    const openComments = async () => {
+      showComment.value = !showComment.value;
+    };
 
     return {
       showComment,
       openComments,
-      data,
-      useFeed,
+      profileData,
     };
   },
 };

@@ -1,6 +1,10 @@
 import { ref } from "vue";
+import NavBar from "@/components/NavBar.vue";
 // import storage from "@/js/fireBase.js";
 export default {
+  components: {
+    NavBar,
+  },
   setup() {
     const selectedFile = ref(null);
 

@@ -7,8 +7,9 @@
   <!-- <ActivityDetails /> -->
   <!-- <CreatePost /> -->
   <!-- <ProfilePage /> -->
-  <HomePage />
+  <!-- <HomePage /> -->
   <router-view></router-view>
+  <!-- <FriendsPage /> -->
 </template>
 
 <script>
@@ -19,8 +20,9 @@
 // import SignUp from "./components/SignUp.vue";
 // import CreatePost from "./components/CreatePost.vue";
 // import ProfilePage from "./components/ProfilePage.vue";
+// import FriendsPage from "./components/FriendsPage.vue";
 
-import HomePage from "./components/HomePage.vue";
+// import HomePage from "./components/HomePage.vue";
 
 export default {
   name: "App",
@@ -29,7 +31,8 @@ export default {
     // CreatePost,
     // ProfilePage,
     // PostCard,
-    HomePage,
+    // HomePage,
+    // FriendsPage,
   },
 };
 </script>
