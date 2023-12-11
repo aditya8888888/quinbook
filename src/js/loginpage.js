@@ -57,19 +57,8 @@ export default defineComponent({
 
     // };
 
-    const likeDto = {
-      userId: "04b345af-2a94-439f-997e-94161ef6c36a",
-      postId: "58b387d9-fca5-4bba-bc09-a754b8061fc6",
-    };
-
-    const onLikeClick = () => {
-      // handleLike(likeDto)
-      removeLikeById(likeDto);
-    };
-
-    const removeLikeById = async (likeDto) => {
-      const url = "http://localhost:8081/like"; // Replace with your actual API endpoint
-
+    const handleToggleLike = async (likeDto) => {
+      const url = "http://localhost:8081/like/toggle-like";
       const payload = {
         value: likeDto,
       };
@@ -78,18 +67,52 @@ export default defineComponent({
         await FETCH_UTIL(
           url,
           payload,
-          "DELETE",
+          "PUT",
           (jsonResponse) => {
-            console.log("Successfully removed like:", jsonResponse);
+            console.log("Successfully added like:", jsonResponse);
+            console.log(likeDto.postId);
+            getLikeCountByPostId(likeDto.postId);
           },
           () => {
-            console.error("Failed to remove like");
+            console.error("Failed to add like");
           }
         );
       } catch (error) {
         console.error("Error during fetch:", error);
       }
     };
+
+    const likeDto = {
+      userId: "04b345af-2a94-439f-997e-94161ef6c36a",
+      postId: "58b387d9-fca5-4bba-bc09-a754b8061fc6",
+    };
+
+    const onLikeClick = () => {
+      // handleLike(likeDto)
+      // removeLikeById(likeDto)
+      handleToggleLike(likeDto);
+      // getLikeCountByPostId(likeDto)
+    };
+
+    // const removeLikeById = async (likeDto) => {
+    //     const url = 'http://localhost:8081/like';  // Replace with your actual API endpoint
+
+    //     const payload = {
+    //         value: likeDto,
+    //     };
+
+    //     try {
+    //         await FETCH_UTIL(url, payload, 'DELETE', (jsonResponse) => {
+    //             console.log('Successfully removed like:', jsonResponse);
+    //         }, () => {
+    //             console.error('Failed to remove like');
+
+    //         });
+    //     } catch (error) {
+    //         console.error('Error during fetch:', error);
+
+    //     }
+    // };
 
     const getLikeCountByPostId = async (postId) => {
       const url = `http://localhost:8081/like/like-count-by-post?postId=${postId}`; // Replace with your actual API endpoint
@@ -122,7 +145,7 @@ export default defineComponent({
       handleLoginGoogle,
       likeCount,
       onLikeClick,
-      removeLikeById,
+      // removeLikeById,
       getLikeCountByPostId,
     };
   },

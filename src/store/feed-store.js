@@ -6,10 +6,12 @@ const useFeedStore = defineStore('feed', () => {
 
     const feedResponse = ref([])
     const totalLikeCount = ref(0)
+    const commentResponse = ref([])
 
     return {
         feedResponse,
-        totalLikeCount
+        totalLikeCount,
+        commentResponse
     }
     
 })
