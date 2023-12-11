@@ -1,4 +1,5 @@
 <template>
+  <NavBar />
   <center>
     <div class="activity-page">
       <h2>Activity Page</h2>

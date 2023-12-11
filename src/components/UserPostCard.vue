@@ -1,7 +1,6 @@
 <template>
   <center>
-    <!-- {{ data }} -->
-    <div v-for="(post, index) in data" :key="index">
+    <div v-for="(post, index) in profileData" :key="index">
       <div v-if="post.mediaType === 'Video'">
         <div
           style="margin-top: 10px"
@@ -317,7 +316,7 @@
   </center>
 </template>
 
-<script src="../js/postcard"></script>
+<script src="../js/userpostcard"></script>
 <style scoped>
 .main-section {
   display: flex;

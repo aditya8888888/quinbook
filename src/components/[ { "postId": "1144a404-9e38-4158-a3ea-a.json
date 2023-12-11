@@ -1,0 +1,21 @@
+[
+  {
+    "postId": "1144a404-9e38-4158-a3ea-a08efba3c352",
+    "userId": "0056b7c3-1387-4443-a2a7-5f0ff7ee07a3",
+    "userName": "Karan",
+    "userProfilePic": "https://i.pinimg.com/videos/thumbnails/originals/2c/f4/9a/2cf49aa9e3a2966bebbf8780b7bea242.0000000.jpg",
+    "createdDate": "2023-12-11T06:41:30.775+00:00",
+    "caption": "Heyyy dudes ",
+    "media": "https://i.pinimg.com/564x/25/a7/f6/25a7f6e52f7d373e7db6d63c4bdb38d1.jpg",
+    "mediaType": "Image",
+    "likeCount": 2,
+    "commentCount": 1,
+    "commentList": [
+      {
+        "description": "Nice Pic",
+        "userId": "57a560f9-3233-43fe-bc5f-9dd881761451",
+        "userName": "Aashim"
+      }
+    ]
+  }
+]

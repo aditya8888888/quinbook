@@ -1,8 +1,9 @@
-<template>
+<!-- <template>
   <center>
-    <div class="activity-page">
+    <div class="friends">
+    <div class="friends-page">
       <h2>Friends Page</h2>
-      <div v-if="userActivity.length === 0" class="no-activity">
+      <div v-if="userActivity.length === 0" class="no-friends">
         No activity yet.
       </div>
       <div v-else>
@@ -17,6 +18,24 @@
         </div>
       </div>
     </div>
+    <div class="friends-page">
+      <h2>Friends Page</h2>
+      <div v-if="userActivity.length === 0" class="no-friends">
+        No activity yet.
+      </div>
+      <div v-else>
+        <div
+          v-for="(activity, index) in sortedActivity"
+          :key="index"
+          :class="['activity-card', activity.type]"
+        >
+          <strong>{{ activity.user.name }} &nbsp;</strong>
+          <p>{{ getActivityText(activity) }}</p>
+          <div class="timestamp">{{ formatTimestamp(activity.timestamp) }}</div>
+        </div>
+      </div>
+      </div>
+      </
   </center>
 </template>
 
@@ -62,4 +81,9 @@
   color: #888;
   margin-left: auto;
 }
-</style>
+</style> -->
+<template>
+  <div>a</div>
+</template>
+
+<script></script>

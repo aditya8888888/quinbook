@@ -1,4 +1,5 @@
 <template>
+  <NavBar />
   <center>
     <div class="head">
       <h1 class="title">Create Post</h1>

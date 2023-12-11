@@ -5,6 +5,7 @@ import ProfilePage from "@/components/ProfilePage.vue";
 import CreatePost from "@/components/CreatePost.vue";
 import ActivityDetails from "@/components/ActivityDetails.vue";
 import HomePage from "@/components/HomePage.vue";
+import FriendsPage from "../components/FriendsPage.vue";
 
 const routes = [
   {
@@ -40,7 +41,7 @@ const routes = [
   {
     path: "/friendspage",
     name: "friendspage",
-    component: HomePage,
+    component: FriendsPage,
   },
 ];
 
