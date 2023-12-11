@@ -1,10 +1,10 @@
 
-export const FETCH_UTIL = async (url, payload, method, successCallback, failCallback) => {
+export const FETCH_UTIL = async (url, payload, method, successCallback, failCallback, token) => {
         const options = {
             method: method,
             headers: {
-                "Content-Type": "application/json"
-                // "Authorization": "Bearer " + token,
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token,
             },
 
             body: JSON.stringify(payload.value),

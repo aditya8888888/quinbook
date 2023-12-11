@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { useCookies } from "vue3-cookies";
 import useUserStore from "@/store/user-store";
+// import { useRouter } from "vue-router";
 import {
     GoogleAuthProvider,
     getAuth,
@@ -11,12 +12,10 @@ import {
 } from "firebase/auth";
 import {
     getFirestore,
-    query,
-    getDocs,
     collection,
-    where,
     addDoc,
 } from "firebase/firestore";
+// import { FETCH_UTIL } from "@/util/fetch-util";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCGQ9vD8waHzZbUYRM7KzlNUnqWZ0tOcr0",
@@ -35,50 +34,67 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
 const signInWithGoogle = async () => {
+
     const userStore = useUserStore()
     try {
         const res = await signInWithPopup(auth, googleProvider);
-        const user = res.user;
-        const q = query(collection(db, "users"), where("uid", "==", user.uid));
-        const docs = await getDocs(q);
-        if (docs.docs.length === 0) {
-            const response = await addDoc(collection(db, "users"), {
-                uid: user.uid,
-                name: user.displayName,
-                authProvider: "google",
-                email: user.email,
-            });
-            const idToken = response._tokenResponse.idToken;
-            const userId = res.user.uid;
+        console.log(res)
+        const idToken = res._tokenResponse.idToken;
+        const userId = res.user.uid
+        console.log(userId)
 
+        const { cookies } = useCookies();
+        console.log("resgistration" + res)
+        cookies.set("token", idToken);
+        cookies.set("userId", userId)
+        userStore.token = idToken;
+        userStore.userId = userId
 
-            const { cookies } = useCookies();
-            cookies.set("token", idToken);
-            cookies.set("userId", userId);
-            userStore.token.value = idToken;
-            userStore.userId.value = userId;
-        }
+        // const url = 'http://10.20.3.164:9090/private/user-details';
+        // const payload = {
+        //     value: {},  // Adjust the payload if needed
+        // };
 
+        // await FETCH_UTIL(url, payload, 'GET', (response) => {
+
+        //     console.log(response)
+        //     const newToken = response.headers.get('Authorization');
+        //     const { cookies } = useCookies();
+        //     cookies.set('token', newToken);
+        //     cookies.set('userid', response.uid);
+        //     userStore.token = newToken;
+        //     userStore.userId = response.uid;
+
+        //     console.log('Token stored successfully.');
+        // }, () => {
+        //     console.error('Failed to update token');
+        // }, idToken);
     } catch (err) {
         console.error(err);
         alert(err.message);
     }
-};
+
+    // const { cookies } = useCookies();
+    // console.log("resgistration" + res)
+    // cookies.set("token", idToken);
+    // userStore.token = idToken;
+}
+
 
 const logInWithEmailAndPassword = async (email, password) => {
+    // const router = useRouter()
     const userStore = useUserStore()
     try {
         const response = await signInWithEmailAndPassword(auth, email, password);
         console.log("login reponse:", response)
         const idToken = response._tokenResponse.idToken;
         const userId = response.user.uid;
-
-
         const { cookies } = useCookies();
         cookies.set("token", idToken);
         cookies.set("userId", userId);
-        userStore.token.value = idToken;
-        userStore.userId.value = userId;
+        userStore.token = idToken;
+        userStore.userId = userId;
+
 
     } catch (err) {
         console.error(err);
@@ -87,6 +103,7 @@ const logInWithEmailAndPassword = async (email, password) => {
 };
 
 const registerWithEmailAndPassword = async (name, email, password) => {
+    // const router = useRouter()
     const userStore = useUserStore()
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -103,11 +120,15 @@ const registerWithEmailAndPassword = async (name, email, password) => {
         console.log("resgistration" + res)
         cookies.set("token", idToken);
         cookies.set("userId", userId);
-        userStore.token.value = idToken;
-        userStore.userId.value = userId;
+        userStore.token = idToken;
+        userStore.userId = userId;
+        // router.push('/homepage');
+
+
     } catch (err) {
         console.error(err);
         alert(err.message);
+
     }
 };
 
@@ -122,10 +143,14 @@ const registerWithEmailAndPassword = async (name, email, password) => {
 // };
 
 const logout = () => {
+    const userStore = useUserStore()
     const { cookies } = useCookies();
     signOut(auth);
     cookies.remove("token")
     cookies.remove("userId")
+    userStore.token = '';
+    userStore.userId = '';
+
 
 };
 
