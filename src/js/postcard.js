@@ -7,6 +7,7 @@ export default {
   setup() {
     const showComment = ref(false);
 
+    const commentDescription = ref('')
     const useFeed = useFeedStore();
     const data = computed(() => useFeed.feedResponse);
     console.log(data);
@@ -186,7 +187,7 @@ export default {
       addLike,
       likeCount,
       addComment,
-      commentDescription,
+      commentDescription
     };
   },
 };
