@@ -19,7 +19,8 @@
         <div class="flex mt-4 md:mt-6">
           <button
             class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 m-2"
-          >
+            @click="handleEditProfile"          
+            >
             Edit Profile
           </button>
           <router-link to="/createpost">

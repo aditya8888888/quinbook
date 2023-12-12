@@ -1,7 +1,7 @@
 <template>
   <div class="registration-page">
     <div class="registration-form">
-      <h2>Create Your Account</h2>
+      <h2>Edit Your Profile</h2>
       <div class="form-group">
         <label for="userName">Username</label>
         <input v-model="userName" type="text" id="userName" required />
@@ -40,11 +40,11 @@
           <option value="business">Business</option>
         </select>
       </div>
-      <button @click="addUser">Create Account</button>
+      <button @click="updateUser">Create Account</button>
     </div>
   </div>
 </template>
-<script src="../js/createprofile"></script>
+<script src="../js/editprofile"></script>
 <style scoped>
 .registration-page {
   display: flex;

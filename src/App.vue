@@ -8,8 +8,10 @@
   <!-- <CreatePost /> -->
   <!-- <ProfilePage /> -->
   <!-- <HomePage /> -->
+
   <router-view></router-view>
   <!-- <FriendsPage /> -->
+  <!-- <CreateProfile/> -->
 </template>
 
 <script>
@@ -23,6 +25,7 @@
 // import FriendsPage from "./components/FriendsPage.vue";
 
 // import HomePage from "./components/HomePage.vue";
+// import  CreateProfile from "./components/CreateProfile.vue"
 
 export default {
   name: "App",
@@ -33,6 +36,7 @@ export default {
     // PostCard,
     // HomePage,
     // FriendsPage,
+    // CreateProfile
   },
 };
 </script>

@@ -68,8 +68,10 @@
                     />
                   </svg>
                 </div>
-                <div @click="onLikeClick(post.postId)">Like &nbsp;</div>
-                {{ likeCount }}
+                <div @click="addLike(post.postId, post.userId)">
+                  Like &nbsp;
+                </div>
+                {{ post.likeCount }}{{ likeCount }}
               </div>
               <div
                 style="display: flex; cursor: pointer"
@@ -109,6 +111,7 @@
                     class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                     placeholder="Write a comment..."
                     required
+                    v-model="commentDescription"
                   ></textarea>
                 </div>
                 <div
@@ -117,6 +120,7 @@
                   <button
                     type="submit"
                     class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-gray-700 rounded-lg focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-900 hover:bg-gray-800"
+                    @click="addComment(post.postId, post.userId)"
                   >
                     Post comment
                   </button>
@@ -221,8 +225,8 @@
                     />
                   </svg>
                 </div>
-                <div @click="onLikeClick(post.postId, post.useId)">
-                  Like &nbsp; {{ likeCount }}
+                <div @click="addLike(post.postId, post.userId)">
+                  Like &nbsp; {{ post.likeCount }}{{ likeCount }}
                 </div>
               </div>
               <div
@@ -272,7 +276,7 @@
                   <button
                     type="submit"
                     class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-gray-700 rounded-lg focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-900 hover:bg-gray-800"
-                    @click="addComment"
+                    @click="addComment(post.postId, post.userId)"
                   >
                     Post comment
                   </button>
