@@ -3,18 +3,17 @@
   <center>
     <div class="activity-page">
       <h2>Activity Page</h2>
-      <div v-if="userActivity.length === 0" class="no-activity">
+      <div v-if="activity.length === 0" class="no-activity">
         No activity yet.
       </div>
       <div v-else>
+        {{ activityItem }}
         <div
-          v-for="(activity, index) in sortedActivity"
+          v-for="(activityItem, index) in activity"
           :key="index"
-          :class="['activity-card', activity.type]"
+          class="activity-card"
         >
-          <strong>{{ activity.user.name }} &nbsp;</strong>
-          <p>{{ getActivityText(activity) }}</p>
-          <div class="timestamp">{{ formatTimestamp(activity.timestamp) }}</div>
+          <strong>{{ activityItem }} &nbsp;</strong>
         </div>
       </div>
     </div>
