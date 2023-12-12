@@ -7,7 +7,7 @@ export default {
   setup() {
     const showComment = ref(false);
 
-    const commentDescription = ref('')
+    const commentDescription = ref("");
     const useFeed = useFeedStore();
     const data = computed(() => useFeed.feedResponse);
     console.log(data);
@@ -178,6 +178,22 @@ export default {
       const userId = "57a560f9-3233-43fe-bc5f-9dd881761451";
       getFeed(userId);
     });
+    const formatTimeAgo = (timestamp) => {
+      const now = new Date();
+      const postTime = new Date(timestamp);
+      const timeDifference = now - postTime;
+      const seconds = Math.floor(timeDifference / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+
+      if (hours > 0) {
+        return `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
+      } else if (minutes > 0) {
+        return `${minutes} ${minutes === 1 ? "minute" : "minutes"} ago`;
+      } else {
+        return `${seconds} ${seconds === 1 ? "second" : "seconds"} ago`;
+      }
+    };
 
     return {
       showComment,
@@ -187,7 +203,8 @@ export default {
       addLike,
       likeCount,
       addComment,
-      commentDescription
+      commentDescription,
+      formatTimeAgo,
     };
   },
 };

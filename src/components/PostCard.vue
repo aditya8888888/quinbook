@@ -19,9 +19,9 @@
                 class="text-2xl font-bold leading-7 text-black-300 sm:truncate sm:text-sm sm:tracking-tight m-2"
               >
                 {{ post.userName }}
-                <!-- <span class="flex items-center text-xs text-gray-400">
-                  {{
-                  post.createdDate}}</span> -->
+                <span class="flex items-center text-xs text-gray-400">
+                  {{ formatTimeAgo(post.createdDate) }}</span
+                >
               </div>
             </div>
             <div class="mt-5 flex lg:ml-4 lg:mt-0"></div>
@@ -182,9 +182,9 @@
                 class="text-2xl font-bold leading-7 text-black-300 sm:truncate sm:text-sm sm:tracking-tight m-2"
               >
                 {{ post.userName }}
-                <!-- <span class="flex items-center text-xs text-gray-400">
-                  {{ post.createdDate }}
-                </span> -->
+                <span class="flex items-center text-xs text-gray-400">
+                  {{ formatTimeAgo(post.createdDate) }}</span
+                >
               </div>
             </div>
             <div class="mt-5 flex lg:ml-4 lg:mt-0"></div>
