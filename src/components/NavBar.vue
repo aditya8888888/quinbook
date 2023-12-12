@@ -241,7 +241,7 @@ const router = useRouter();
 
 const handleSignOut = () => {
   logout();
-  router.push("/");
+  // router.push("/");
 };
 
 const openprofile = () => {

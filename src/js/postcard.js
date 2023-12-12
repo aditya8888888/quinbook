@@ -6,11 +6,10 @@ export default {
   component: {},
   setup() {
     const showComment = ref(false);
-
     const commentDescription = ref("");
     const useFeed = useFeedStore();
-    const data = computed(() => useFeed.feedResponse);
-    console.log(data);
+    const feed = computed(() => useFeed.feedResponse);
+    console.log(feed);
 
     const openComments = async () => {
       showComment.value = !showComment.value;
@@ -198,7 +197,7 @@ export default {
     return {
       showComment,
       openComments,
-      data,
+      feed,
       useFeed,
       addLike,
       likeCount,
