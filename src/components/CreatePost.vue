@@ -1,7 +1,7 @@
 <template>
   <NavBar />
   <center>
-    <div class="head">
+    <div class="head max-w-lg mt-3">
       <h1 class="title">Create Post</h1>
       <div class="create-post">
         <div class="post-form">
