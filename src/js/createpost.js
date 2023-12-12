@@ -4,7 +4,6 @@ import { FETCH_UTIL } from "@/util/fetch-util";
 // import { useCookies } from "vue3-cookies";
 // import useFeedStore from "@/store/feed-store";
 
-
 import storage from "@/js/fireBase.js";
 export default {
   components: {
@@ -13,11 +12,9 @@ export default {
   setup() {
     // const { cookies } = useCookies();
     const selectedFile = ref(null);
-    const caption = ref('');
-    const imageUrl = ref('');
+    const caption = ref("");
+    const imageUrl = ref("");
     // const useFeed = useFeedStore()
-
-
 
     const handleFileChange = (event) => {
       console.log(event);
@@ -29,14 +26,22 @@ export default {
     const uploadImage = async () => {
       try {
         if (selectedFile.value) {
-          const storageRef = storage.StorageRef(storage.storage, selectedFile.value.name);
+          const storageRef = storage.StorageRef(
+            storage.storage,
+            selectedFile.value.name
+          );
 
           // Upload the file
-          const snapshot = await storage.uploadBytes(storageRef, selectedFile.value);
+          const snapshot = await storage.uploadBytes(
+            storageRef,
+            selectedFile.value
+          );
           console.log("Uploaded a file", snapshot);
 
           // Get the download URL
-          const url = await storage.getDownloadURL(storage.StorageRef(storage.storage, selectedFile.value.name));
+          const url = await storage.getDownloadURL(
+            storage.StorageRef(storage.storage, selectedFile.value.name)
+          );
           console.log(url);
 
           // Update the imageUrl.value
@@ -48,7 +53,6 @@ export default {
       }
     };
 
-
     const uploadPost = async (postDto) => {
       const url = `http://10.20.3.178:8081/post`;
       const payload = {
@@ -57,7 +61,7 @@ export default {
       try {
         await FETCH_UTIL(
           url,
-          payload.value,
+          payload,
           "POST",
           (jsonResponse) => {
             console.log(jsonResponse);
@@ -79,13 +83,13 @@ export default {
         userId: "0056b7c3-1387-4443-a2a7-5f0ff7ee07a3", // cookies.get('userId'),
         caption: caption.value,
         media: imageUrl.value,
-        mediaType: "Image"
+        mediaType: "Image",
       };
 
       console.log(postDto.media);
       await uploadPost(postDto); // Wait for uploadPost to complete
 
-      alert("Media uploaded")
+      alert("Media uploaded");
     };
 
     return {
@@ -93,7 +97,7 @@ export default {
       //   uploadImage,
       selectedFile,
       caption,
-      handleUpload
+      handleUpload,
     };
   },
 };
