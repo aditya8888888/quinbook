@@ -2,7 +2,7 @@ import { computed, defineComponent, ref } from "vue";
 import {
     logInWithEmailAndPassword,
     signInWithGoogle,
-} from "@/firestore/firebase";
+} from "@/firestore/firebaselogin";
 
 // import useUserStore from "@/store/user-store";
 import useFeedStore from "@/store/feed-store";

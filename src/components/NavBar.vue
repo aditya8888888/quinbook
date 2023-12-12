@@ -174,7 +174,7 @@ import {
   MenuItems,
 } from "@headlessui/vue";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
-import { logout } from "@/firestore/firebase";
+import { logout } from "@/firestore/firebaselogin";
 
 const router = useRouter();
 

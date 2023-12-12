@@ -27,7 +27,7 @@ const firebaseConfig = {
     measurementId: "G-ZENJKFKZE3"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig, "second");
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -104,7 +104,7 @@ const logInWithEmailAndPassword = async (email, password) => {
 
 const registerWithEmailAndPassword = async (name, email, password) => {
     // const router = useRouter()
-    const userStore = useUserStore()
+    // const userStore = useUserStore()
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
@@ -115,13 +115,31 @@ const registerWithEmailAndPassword = async (name, email, password) => {
             email,
         });
         const idToken = res._tokenResponse.idToken;
-        const userId = res.user.uid;
-        const { cookies } = useCookies();
-        console.log("resgistration" + res)
-        cookies.set("token", idToken);
-        cookies.set("userId", userId);
-        userStore.token = idToken;
-        userStore.userId = userId;
+        // const userId = res.user.uid;
+
+        const getCustomToken = async (idToken) => {
+            const GATEWAY_URL = "http://10.20.3.164:8765/user-details"
+            const response = await fetch(GATEWAY_URL, {
+                method: "GET",
+                headers: {
+                    "authorization": `Bearer ${idToken}`,
+                    "Content-Type": "application/json",
+                },
+            });
+            const res = await response.json();
+
+            console.log(response.headers.get('Authorization'))
+            console.log(response);
+            console.log(res);
+        }
+        getCustomToken(idToken)
+
+        // const { cookies } = useCookies();
+        // console.log("resgistration" + res)
+        // cookies.set("token", idToken);
+        // cookies.set("userId", userId);
+        // userStore.token = idToken;
+        // userStore.userId = userId;
         // router.push('/homepage');
 
 

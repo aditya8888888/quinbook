@@ -6,6 +6,7 @@ import CreatePost from "@/components/CreatePost.vue";
 import ActivityDetails from "@/components/ActivityDetails.vue";
 import HomePage from "@/components/HomePage.vue";
 import FriendsPage from "../components/FriendsPage.vue";
+import CreateProfile from "../components/CreateProfile";
 
 const routes = [
   {
@@ -43,6 +44,11 @@ const routes = [
     name: "friendspage",
     component: FriendsPage,
   },
+  {
+    path: "/createprofile",
+    name: "createprofile",
+    component: CreateProfile,
+  }
 ];
 
 const router = createRouter({
