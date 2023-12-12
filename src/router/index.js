@@ -7,6 +7,7 @@ import ActivityDetails from "@/components/ActivityDetails.vue";
 import HomePage from "@/components/HomePage.vue";
 import FriendsPage from "../components/FriendsPage.vue";
 import CreateProfile from "../components/CreateProfile";
+import SearchResult from "../components/SearchResult.vue";
 
 const routes = [
   {
@@ -48,7 +49,12 @@ const routes = [
     path: "/createprofile",
     name: "createprofile",
     component: CreateProfile,
-  }
+  },
+  {
+    path: "/searchresult",
+    name: "searchresult",
+    component: SearchResult,
+  },
 ];
 
 const router = createRouter({

@@ -1,6 +1,6 @@
 <template>
   <NavBar />
-  <center>
+  <center style="padding-top: 8rem">
     <div class="head max-w-lg mt-3">
       <h1 class="title">Create Post</h1>
       <div class="create-post">

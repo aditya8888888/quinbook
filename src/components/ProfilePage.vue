@@ -1,6 +1,6 @@
 <template>
   <NavBar />
-  <center>
+  <center style="padding-top: 8rem">
     <div
       class="mt-2 w-full max-w-lg bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
     >

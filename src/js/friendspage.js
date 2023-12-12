@@ -38,9 +38,34 @@ export default {
       //   getFriendDetails(userId);
       getFriendRequests(userId);
     });
+
+    const friendacceptrequests = ref([]);
+    const getAcceptRequests = async (userId, requestedId) => {
+      const url = `http://10.20.2.122:8080/user/accept-request?userId=${userId}&requestedId=${requestedId}`;
+      const d = {
+        method: "PUT",
+      };
+      try {
+        const response = await fetch(url, d);
+        const jsonResponse = await response.json();
+        friendacceptrequests.value = jsonResponse;
+      } catch (error) {
+        console.error("Error during fetch:", error);
+      }
+    };
+
+    const acceptrequest = (requestedId) => {
+      const userId = "0056b7c3-1387-4443-a2a7-5f0ff7ee07a3";
+      console.log(userId, requestedId);
+      getAcceptRequests(userId, requestedId);
+      window.location.reload();
+    };
     return {
       friends,
       friendrequests,
+      friendacceptrequests,
+      getAcceptRequests,
+      acceptrequest,
     };
   },
 };

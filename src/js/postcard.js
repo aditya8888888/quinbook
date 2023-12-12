@@ -1,50 +1,19 @@
 import useFeedStore from "@/store/feed-store";
 import { FETCH_UTIL } from "@/util/fetch-util";
 import { computed, onBeforeMount, ref } from "vue";
-// import { useCookies } from "vue3-cookies";
 
 export default {
   component: {},
   setup() {
-    // const { cookies } = useCookies();
     const showComment = ref(false);
-    const commentDescription = ref('')
 
     const useFeed = useFeedStore();
     const data = computed(() => useFeed.feedResponse);
     console.log(data);
 
-
     const openComments = async () => {
       showComment.value = !showComment.value;
     };
-
-    const likeCount = ref(0)
-
-    const setActivity = async (ActivityDto) => {
-      const url = "http://localhost:8080/activity/add-activity";
-      const payload = {
-        value: ActivityDto,
-      };
-
-      try {
-        await FETCH_UTIL(
-          url,
-          payload,
-          "POST",
-          (jsonResponse) => {
-            console.log("Successfully Activity", jsonResponse);
-
-          },
-          () => {
-            console.error("Failed to add Activity");
-          }
-        );
-      } catch (error) {
-        console.error("Error during fetch:", error);
-      }
-    }
-
 
     const getFeed = async (userId) => {
       const url = `http://10.20.3.178:8081/feed/get-feed-by-userid?userId=${userId}`;
@@ -67,108 +36,6 @@ export default {
       }
     };
 
-    const handleToggleLike = async (likeDto, userId) => {
-
-      debugger
-      const url = "http://localhost:8081/like/toggle-like";
-
-      const payload = {
-        value: likeDto,
-      };
-
-      try {
-        await FETCH_UTIL(
-          url,
-          payload,
-          "PUT",
-          (jsonResponse) => {
-
-            console.log("Successfully added like:", jsonResponse);
-            console.log(likeDto.postId);
-            getLikeCountByPostId(likeDto.postId);
-            setActivity({
-              userId: userId,
-              friendUserId: "57a560f9-3233-43fe-bc5f-9dd881761451",
-              type: "like"
-            })
-          },
-          () => {
-            console.error("Failed to add like");
-          }
-        );
-      } catch (error) {
-        console.error("Error during fetch:", error);
-      }
-    };
-
-
-    const getLikeCountByPostId = async (postId) => {
-      const url = `http://localhost:8081/like/like-count-by-post?postId=${postId}`; // Replace with your actual API endpoint
-
-      try {
-        await FETCH_UTIL(
-          url,
-          {},
-          "GET",
-          (jsonResponse) => {
-            useFeed.totalLikeCount = jsonResponse;
-          },
-          () => {
-            console.error("Failed to get like count");
-          }
-        );
-      } catch (error) {
-        console.error("Error during fetch:", error);
-      }
-    };
-
-    const onLikeClick = (postId, userId) => {
-      const likeDto = {
-        userId: "57a560f9-3233-43fe-bc5f-9dd881761451",//cookies.get("userId"),
-        postId: postId,
-      };
-
-      // handleLike(likeDto)
-      // removeLikeById(likeDto)
-      handleToggleLike(likeDto, userId);
-      // getLikeCountByPostId(likeDto)
-    };
-
-    const comment = async (commentDto) => {
-      const url = "http://localhost:8081/comment";
-      const payload = {
-        value: commentDto,
-      };
-
-      try {
-        await FETCH_UTIL(
-          url,
-          payload,
-          "POST",
-          (jsonResponse) => {
-            console.log("Successfully commented", jsonResponse);
-
-          },
-          () => {
-            console.error("Failed to add Comment");
-          }
-        );
-      } catch (error) {
-        console.error("Error during fetch:", error);
-      }
-    };
-
-    const addComment = (postId) => {
-
-      const commentDto = {
-        userId: "57a560f9-3233-43fe-bc5f-9dd881761451",
-        postId: postId,
-        commentDescription: commentDescription.value
-      }
-
-      comment(commentDto)
-    }
-
     onBeforeMount(() => {
       const userId = "57a560f9-3233-43fe-bc5f-9dd881761451";
       getFeed(userId);
@@ -179,9 +46,6 @@ export default {
       openComments,
       data,
       useFeed,
-      onLikeClick,
-      likeCount,
-      addComment
     };
   },
 };

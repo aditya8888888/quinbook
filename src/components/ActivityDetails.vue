@@ -1,6 +1,6 @@
 <template>
   <NavBar />
-  <center>
+  <center style="padding-top: 8rem">
     <div class="activity-page">
       <h2>Activity Page</h2>
       <div v-if="activity.length === 0" class="no-activity">

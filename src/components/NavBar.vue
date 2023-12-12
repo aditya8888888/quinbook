@@ -1,5 +1,10 @@
 <template>
-  <Disclosure as="nav" class="bg-gray-800" v-slot="{ open }">
+  <Disclosure
+    as="nav"
+    class="bg-gray-800"
+    v-slot="{ open }"
+    style="position: fixed; width: 100%"
+  >
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -159,6 +164,54 @@
         </div>
       </div>
     </DisclosurePanel>
+    <center>
+      <form>
+        <label
+          for="default-search"
+          class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+          >Search</label
+        >
+        <div class="relative">
+          <div
+            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+          >
+            <svg
+              class="w-4 h-4 text-gray-500 dark:text-gray-400"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+          </div>
+          <input
+            style="border-radius: 0"
+            type="search"
+            id="default-search"
+            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+            placeholder="Search your friend"
+            required
+            v-model="searchtext"
+          />
+          <router-link to="/searchresult">
+            <button
+              type="submit"
+              class="text-white absolute end-2.5 bottom-2.5 bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+              @click="opensearchresult(searchtext)"
+            >
+              Search
+            </button>
+          </router-link>
+        </div>
+      </form>
+    </center>
   </Disclosure>
 </template>
 
@@ -175,6 +228,14 @@ import {
 } from "@headlessui/vue";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { logout } from "@/firestore/firebaselogin";
+import { ref } from "vue";
+
+const searchtext = ref("");
+
+const opensearchresult = (searchtext) => {
+  localStorage.setItem("text", searchtext);
+  // console.log(searchtext);
+};
 
 const router = useRouter();
 
@@ -182,10 +243,6 @@ const handleSignOut = () => {
   logout();
   router.push("/");
 };
-
-// const openhome = () => {
-//   router.push("/homepage");
-// };
 
 const openprofile = () => {
   router.push("/profilepage");
@@ -198,7 +255,4 @@ const openfriends = () => {
 const opencreatepost = () => {
   router.push("/createpost");
 };
-// const openlogin = () => {
-//   router.push("/");
-// };
 </script>

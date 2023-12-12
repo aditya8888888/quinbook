@@ -1,7 +1,7 @@
 <template>
   <center>
     <!-- {{ data }} -->
-    <div v-for="(post, index) in data" :key="index">
+    <div v-for="(post, index) in data" :key="index" style="padding-top: 8rem">
       <div v-if="post.mediaType === 'Video'">
         <div
           style="margin-top: 10px"
@@ -19,9 +19,9 @@
                 class="text-2xl font-bold leading-7 text-black-300 sm:truncate sm:text-sm sm:tracking-tight m-2"
               >
                 {{ post.userName }}
-                <span class="flex items-center text-xs text-gray-400">{{
-                  post.createdDate
-                }}</span>
+                <!-- <span class="flex items-center text-xs text-gray-400">
+                  {{
+                  post.createdDate}}</span> -->
               </div>
             </div>
             <div class="mt-5 flex lg:ml-4 lg:mt-0"></div>
@@ -69,7 +69,7 @@
                   </svg>
                 </div>
                 <div @click="onLikeClick(post.postId)">Like &nbsp;</div>
-                {{likeCount}}
+                {{ likeCount }}
               </div>
               <div
                 style="display: flex; cursor: pointer"
@@ -178,9 +178,9 @@
                 class="text-2xl font-bold leading-7 text-black-300 sm:truncate sm:text-sm sm:tracking-tight m-2"
               >
                 {{ post.userName }}
-                <span class="flex items-center text-xs text-gray-400">
+                <!-- <span class="flex items-center text-xs text-gray-400">
                   {{ post.createdDate }}
-                </span>
+                </span> -->
               </div>
             </div>
             <div class="mt-5 flex lg:ml-4 lg:mt-0"></div>
@@ -272,8 +272,8 @@
                   <button
                     type="submit"
                     class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-gray-700 rounded-lg focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-900 hover:bg-gray-800"
-                  @click="addComment"
-                    >
+                    @click="addComment"
+                  >
                     Post comment
                   </button>
                 </div>
