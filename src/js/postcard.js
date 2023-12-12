@@ -21,7 +21,7 @@ export default {
 
     const likeCount = ref(0)
 
-    const setActivity = async (ActivityDto) => {
+    const activity = async (ActivityDto) => {
       const url = "http://localhost:8080/activity/add-activity";
       const payload = {
         value: ActivityDto,
@@ -67,7 +67,7 @@ export default {
       }
     };
 
-    const handleToggleLike = async (likeDto, userId) => {
+    const handleToggleLike = async (likeDto) => {
 
       debugger
       const url = "http://localhost:8081/like/toggle-like";
@@ -84,13 +84,13 @@ export default {
           (jsonResponse) => {
 
             console.log("Successfully added like:", jsonResponse);
-            console.log(likeDto.postId);
+            // console.log(likeDto.postId);
             getLikeCountByPostId(likeDto.postId);
-            setActivity({
-              userId: userId,
-              friendUserId: "57a560f9-3233-43fe-bc5f-9dd881761451",
-              type: "like"
-            })
+            // setActivity({
+            //   userId: userId,
+            //   friendUserId: "57a560f9-3233-43fe-bc5f-9dd881761451",
+            //   type: "like"
+            // })
           },
           () => {
             console.error("Failed to add like");
@@ -112,6 +112,7 @@ export default {
           "GET",
           (jsonResponse) => {
             useFeed.totalLikeCount = jsonResponse;
+            console.log(jsonResponse)
           },
           () => {
             console.error("Failed to get like count");
@@ -122,15 +123,22 @@ export default {
       }
     };
 
-    const onLikeClick = (postId, userId) => {
+    const addLike = (postId, userId) => {
       const likeDto = {
         userId: "57a560f9-3233-43fe-bc5f-9dd881761451",//cookies.get("userId"),
         postId: postId,
       };
 
+      const activityDto = {
+        userId: userId,
+        friendUserId: "57a560f9-3233-43fe-bc5f-9dd881761451",
+        type: "like"
+      }
       // handleLike(likeDto)
       // removeLikeById(likeDto)
-      handleToggleLike(likeDto, userId);
+      activity(activityDto)
+      handleToggleLike(likeDto);
+
       // getLikeCountByPostId(likeDto)
     };
 
@@ -158,7 +166,7 @@ export default {
       }
     };
 
-    const addComment = (postId) => {
+    const addComment = (postId, userId) => {
 
       const commentDto = {
         userId: "57a560f9-3233-43fe-bc5f-9dd881761451",
@@ -166,6 +174,13 @@ export default {
         commentDescription: commentDescription.value
       }
 
+      const activityDto = {
+        userId: userId,
+        friendUserId: "57a560f9-3233-43fe-bc5f-9dd881761451", //cookies.get("userId"),
+        type: "comment"
+      }
+
+      activity(activityDto)
       comment(commentDto)
     }
 
@@ -179,9 +194,10 @@ export default {
       openComments,
       data,
       useFeed,
-      onLikeClick,
+      addLike,
       likeCount,
-      addComment
+      addComment,
+      commentDescription
     };
   },
 };

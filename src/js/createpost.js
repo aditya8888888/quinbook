@@ -4,7 +4,9 @@ import { FETCH_UTIL } from "@/util/fetch-util";
 // import { useCookies } from "vue3-cookies";
 // import useFeedStore from "@/store/feed-store";
 
+
 import storage from "@/js/fireBase.js";
+import { useRouter } from "vue-router";
 export default {
   components: {
     NavBar,
@@ -15,7 +17,7 @@ export default {
     const caption = ref("");
     const imageUrl = ref("");
     // const useFeed = useFeedStore()
-
+    const router = useRouter()
     const handleFileChange = (event) => {
       console.log(event);
       const file = event.target.files[0];
@@ -80,7 +82,7 @@ export default {
       console.log("hffhfh" + imageUrl.value);
 
       const postDto = {
-        userId: "0056b7c3-1387-4443-a2a7-5f0ff7ee07a3", // cookies.get('userId'),
+        userId: "e2045ec8-8ac1-421d-a4d4-f640f427639a", // cookies.get('userId'),
         caption: caption.value,
         media: imageUrl.value,
         mediaType: "Image",
@@ -90,6 +92,7 @@ export default {
       await uploadPost(postDto); // Wait for uploadPost to complete
 
       alert("Media uploaded");
+      router.push('/homepage')
     };
 
     return {

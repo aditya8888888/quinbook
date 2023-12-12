@@ -72,7 +72,7 @@ export default {
         };
 
         const uploadUser = async (userDto) => {
-            const url = `http://10.20.2.122:8080/user/add-user`;
+            const url = `http://10.20.2.122:8080/user/update-user`;
             const payload = {
                 value: userDto,
             };
@@ -80,7 +80,7 @@ export default {
                 await FETCH_UTIL(
                     url,
                     payload,
-                    "POST",
+                    "PUT",
                     (jsonResponse) => {
                         console.log("User Add", jsonResponse);
                     },
@@ -93,12 +93,12 @@ export default {
             }
         };
 
-        const addUser = async () => {
+        const updateUser = async () => {
             await uploadImage(); // Wait for uploadImage to complete
             console.log("hffhfh" + userProfilePic.value);
 
             const userDto = {
-                userId: cookies.get('userId'),
+                userId: "1164f27d-c763-438c-adb0-8a6d8e733e3a",
                 userEmail: cookies.get('userEmail'),
                 userName: userName.value,
                 userBio: userBio.value,
@@ -107,17 +107,17 @@ export default {
                 userAccountType: userAccountType.value
             };
 
-            const response = await uploadUser(userDto); // Wait for uploadPost to complete
+            await uploadUser(userDto); // Wait for uploadPost to complete
 
-            alert("User uploaded");
-            router.push('/homepage')
+            alert("User Updated");
+            router.push('/profilepage')
         };
 
 
 
 
         return {
-            addUser,
+            updateUser,
             userName,
             userBio,
             userIsPrivate,

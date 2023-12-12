@@ -15,6 +15,7 @@ import {
     collection,
     addDoc,
 } from "firebase/firestore";
+import useAuthStore from "@/store/auth-store";
 // import { FETCH_UTIL } from "@/util/fetch-util";
 
 const firebaseConfig = {
@@ -35,20 +36,23 @@ const googleProvider = new GoogleAuthProvider();
 
 const signInWithGoogle = async () => {
 
-    const userStore = useUserStore()
+    // const userStore = useUserStore()
+    const authStore = useAuthStore()
     try {
         const res = await signInWithPopup(auth, googleProvider);
         console.log(res)
         const idToken = res._tokenResponse.idToken;
-        const userId = res.user.uid
-        console.log(userId)
+        authStore.getCustomToken(idToken);
 
-        const { cookies } = useCookies();
-        console.log("resgistration" + res)
-        cookies.set("token", idToken);
-        cookies.set("userId", userId)
-        userStore.token = idToken;
-        userStore.userId = userId
+        // const userId = res.user.uid
+        // console.log(userId)
+
+        // const { cookies } = useCookies();
+        // console.log("resgistration" + res)
+        // cookies.set("token", idToken);
+        // cookies.set("userId", userId)
+        // userStore.token = idToken;
+        // userStore.userId = userId
 
         // const url = 'http://10.20.3.164:9090/private/user-details';
         // const payload = {
@@ -83,17 +87,19 @@ const signInWithGoogle = async () => {
 
 const logInWithEmailAndPassword = async (email, password) => {
     // const router = useRouter()
-    const userStore = useUserStore()
+    const authStore = useAuthStore()
+    // const userStore = useUserStore()
     try {
         const response = await signInWithEmailAndPassword(auth, email, password);
         console.log("login reponse:", response)
         const idToken = response._tokenResponse.idToken;
-        const userId = response.user.uid;
-        const { cookies } = useCookies();
-        cookies.set("token", idToken);
-        cookies.set("userId", userId);
-        userStore.token = idToken;
-        userStore.userId = userId;
+        authStore.getCustomToken(idToken);
+        // const userId = response.user.uid;
+        // const { cookies } = useCookies();
+        // cookies.set("token", idToken);
+        // cookies.set("userId", userId);
+        // userStore.token = idToken;
+        // userStore.userId = userId;
 
 
     } catch (err) {
@@ -105,6 +111,9 @@ const logInWithEmailAndPassword = async (email, password) => {
 const registerWithEmailAndPassword = async (name, email, password) => {
     // const router = useRouter()
     // const userStore = useUserStore()
+
+    const authStore = useAuthStore()
+    // const { cookies } = useCookies();
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
@@ -116,23 +125,42 @@ const registerWithEmailAndPassword = async (name, email, password) => {
         });
         const idToken = res._tokenResponse.idToken;
         // const userId = res.user.uid;
+        authStore.getCustomToken(idToken);
 
-        const getCustomToken = async (idToken) => {
-            const GATEWAY_URL = "http://10.20.3.164:8765/user-details"
-            const response = await fetch(GATEWAY_URL, {
-                method: "GET",
-                headers: {
-                    "authorization": `Bearer ${idToken}`,
-                    "Content-Type": "application/json",
-                },
-            });
-            const res = await response.json();
+        // const getCustomToken = async (idToken) => {
+        //     const GATEWAY_URL = "http://10.20.3.164:8765/user-details"
+        //     const response = await fetch(GATEWAY_URL, {
+        //         method: "GET",
+        //         headers: {
+        //             "authorization": `Bearer ${idToken}`,
+        //             "Content-Type": "application/json",
+        //         },
+        //     });
+        //     getUserDetails()
+        //     console.log(response.headers.get('Authorization'))
+        //     console.log(response)
+        //     cookies.set("token", decodeURI(response.headers.get('Authorization')))
+        //     console.log("Token", cookies.get('token'))
+        // }
 
-            console.log(response.headers.get('Authorization'))
-            console.log(response);
-            console.log(res);
-        }
-        getCustomToken(idToken)
+        // const getUserDetails = async () => {
+        //     const GATEWAY_URL = "http://10.20.3.164:8765/getUser"
+        //     const response = await fetch(GATEWAY_URL, {
+        //         method: "GET",
+        //         headers: {
+        //             authorization: cookies.get('token'),
+        //             "Content-Type": "application/json",
+        //         },
+
+        //     })
+        //     const res = await response.json()
+        //     // console.log("User", res)
+        //     cookies.set("userId", res.uid)
+        //     cookies.set("userEmail", res.email)
+        //     // console.log(cookies.get('userId'))
+
+        // }
+        // getCustomToken(idToken)
 
         // const { cookies } = useCookies();
         // console.log("resgistration" + res)
@@ -166,6 +194,7 @@ const logout = () => {
     signOut(auth);
     cookies.remove("token")
     cookies.remove("userId")
+    cookies.remove("userEmail")
     userStore.token = '';
     userStore.userId = '';
 

@@ -5,6 +5,8 @@ export const FETCH_UTIL = async (
   successCallback,
   failCallback
 ) => {
+  // debugger
+  console.log(payload.value)
   const options = {
     method: method,
     headers: {

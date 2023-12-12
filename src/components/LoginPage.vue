@@ -73,9 +73,9 @@
       </div>
     </div>
   </center>
-
+<!-- 
   <div class="like-show">{{ likeCount }}</div>
-  <button class="like-btn" @click="onLikeClick">Like Button</button>
+  <button class="like-btn" @click="onLikeClick">Like Button</button> -->
 </template>
 
 <script src="@/js/loginpage.js"></script>
