@@ -5,14 +5,16 @@ import NavBar from "@/components/NavBar.vue";
 import UserPostCard from "../components/UserPostCard.vue";
 import userProfileStore from "../store/user-store";
 import { useRouter } from "vue-router";
+import AdCard from "@/components/AdCard.vue";
 export default {
   components: {
     // PostCard,
     NavBar,
     UserPostCard,
+    AdCard,
   },
   setup() {
-    const router = useRouter()
+    const router = useRouter();
     const userStore = userProfileStore();
     const userData = computed(() => userStore.userResponse);
     console.log(userData);
@@ -40,8 +42,8 @@ export default {
     };
 
     const handleEditProfile = () => {
-      router.push('/editprofile')
-    }
+      router.push("/editprofile");
+    };
 
     onBeforeMount(() => {
       const userId = "6f83ed2e-370b-4f7a-9a51-1a76ad6a9566";
@@ -51,7 +53,7 @@ export default {
     return {
       userData,
       getUserDetails,
-      handleEditProfile
+      handleEditProfile,
     };
   },
 };

@@ -1,15 +1,16 @@
 import { ref } from "vue";
 import NavBar from "@/components/NavBar.vue";
 import { FETCH_UTIL } from "@/util/fetch-util";
+import AdCard from "@/components/AdCard.vue";
 // import { useCookies } from "vue3-cookies";
 // import useFeedStore from "@/store/feed-store";
-
 
 import storage from "@/js/fireBase.js";
 import { useRouter } from "vue-router";
 export default {
   components: {
     NavBar,
+    AdCard,
   },
   setup() {
     // const { cookies } = useCookies();
@@ -17,7 +18,7 @@ export default {
     const caption = ref("");
     const imageUrl = ref("");
     // const useFeed = useFeedStore()
-    const router = useRouter()
+    const router = useRouter();
     const handleFileChange = (event) => {
       console.log(event);
       const file = event.target.files[0];
@@ -92,7 +93,7 @@ export default {
       await uploadPost(postDto); // Wait for uploadPost to complete
 
       alert("Media uploaded");
-      router.push('/homepage')
+      router.push("/homepage");
     };
 
     return {

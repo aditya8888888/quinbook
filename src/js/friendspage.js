@@ -1,9 +1,11 @@
 import NavBar from "@/components/NavBar.vue";
 import { onBeforeMount, ref } from "vue";
+import AdCard from "@/components/AdCard.vue";
 
 export default {
   components: {
     NavBar,
+    AdCard,
   },
   setup() {
     const friends = ref([]);

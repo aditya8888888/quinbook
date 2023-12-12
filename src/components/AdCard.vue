@@ -7,12 +7,12 @@
       <img
         class="rounded-t-lg p-2"
         style="width: 15rem"
-        src="../assets/ww4.jpeg"
+        :src="ads.imageLink"
         alt=""
       />
       <div class="p-1">
         <a
-          href="#"
+          :href="ads.externalLink"
           class="inline-flex items-center px-3 py-1 text-sm font-medium text-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
         >
           Click to Know More
@@ -36,5 +36,5 @@
     </div>
   </div>
 </template>
-<script></script>
+<script src="../js/adcard"></script>
 <style></style>

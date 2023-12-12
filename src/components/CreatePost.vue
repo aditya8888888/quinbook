@@ -1,48 +1,54 @@
 <template>
   <NavBar />
-  <center style="padding-top: 8rem">
-    <div class="head max-w-lg mt-3">
-      <h1 class="title">Create Post</h1>
-      <div class="create-post">
-        <div class="post-form">
-          <div class="mb-6">
-            <label
-              for="large-input"
-              class="block mb-2 text-sm font-medium text-white-900 dark:text-white"
-              >Describe your story!!</label
-            >
-            <input
-              v-model="caption"
-              type="text"
-              id="large-input"
-              class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
-          </div>
-          <label
-            class="block mb-2 text-sm font-medium text-white-900 dark:text-white"
-            for="media"
-            >Upload file</label
-          >
-          <input
-            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 p-2"
-            type="file"
-            accept="image/*"
-            name="image"
-            id="file"
-            @change="handleFileChange"
-          />
+  <div style="display: flex">
+    <div style="margin-top: 15rem; margin-right: 15rem"><AdCard /></div>
+    <div>
+      <center style="padding-top: 8rem">
+        <div class="head max-w-lg mt-3">
+          <h1 class="title">Create Post</h1>
+          <div class="create-post">
+            <div class="post-form">
+              <div class="mb-6">
+                <label
+                  for="large-input"
+                  class="block mb-2 text-sm font-medium text-white-900 dark:text-white"
+                  >Describe your story!!</label
+                >
+                <input
+                  v-model="caption"
+                  type="text"
+                  id="large-input"
+                  class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+              </div>
+              <label
+                class="block mb-2 text-sm font-medium text-white-900 dark:text-white"
+                for="media"
+                >Upload file</label
+              >
+              <input
+                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 p-2"
+                type="file"
+                accept="image/*"
+                name="image"
+                id="file"
+                @change="handleFileChange"
+              />
 
-          <button
-            type="button"
-            class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-            @click="handleUpload"
-          >
-            Post
-          </button>
+              <button
+                type="button"
+                class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                @click="handleUpload"
+              >
+                Post
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      </center>
     </div>
-  </center>
+    <div style="margin-top: 15rem; margin-left: 15rem"><AdCard /></div>
+  </div>
 </template>
 
 <script src="../js/createpost"></script>
