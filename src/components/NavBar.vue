@@ -83,7 +83,7 @@
                 <span class="sr-only">Open user menu</span>
                 <img
                   class="h-8 w-8 rounded-full"
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  :src="userData.userProfilePic"
                   alt=""
                 />
               </MenuButton>
@@ -228,8 +228,9 @@ import {
 } from "@headlessui/vue";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { logout } from "@/firestore/firebaselogin";
-import { ref } from "vue";
-
+import { computed, onBeforeMount, ref } from "vue";
+import { useCookies } from "vue3-cookies";
+import userProfileStore from "../store/user-store";
 const searchtext = ref("");
 
 const opensearchresult = (searchtext) => {
@@ -255,4 +256,40 @@ const openfriends = () => {
 const opencreatepost = () => {
   router.push("/createpost");
 };
+const userStore = userProfileStore();
+const userData = computed(() => userStore.userResponse);
+    console.log(userData);
+
+    const getUserDetails = async (userId) => {
+      const url = `http://10.20.2.122:8080/user/get-user-by-id?userId=${userId}`;
+      // const url1 = "http://10.20.2.122/user/get-user-by-id?userId=${userId}";
+
+      try {
+        await FETCH_UTIL(
+          url,
+          {},
+          "GET",
+          (jsonResponse) => {
+            userStore.userResponse = jsonResponse;
+            console.log(jsonResponse);
+          },
+          () => {
+            console.error("Failed to get like count");
+          }
+        );
+      } catch (error) {
+        console.error("Error during fetch:", error);
+      }
+    };
+
+    // const handleEditProfile = () => {
+    //   router.push("/editprofile");
+    // };
+
+    const {cookies} = useCookies()
+    onBeforeMount(() => {
+      const userId = cookies.get("userId");
+      getUserDetails(userId);
+    });
+
 </script>
