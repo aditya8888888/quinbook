@@ -148,18 +148,46 @@ export default {
       }
     };
 
+    const getCommentByPost = async (postId) => {
+      const url = `http://10.20.3.178:8081/comment/comment-by-post?postId=${postId}`;
+      try {
+        await FETCH_UTIL(url, {}, "GET",
+          (commentList) => {
+            const postIndex = data.value.findIndex((post) => post.postId === postId);
+            if (postIndex !== -1) {
+              // console.log(postIndex, useFeed.feedResponse[postIndex])
+              // console.log(commentList, useFeed.feedResponse[postIndex])
+              // useFeed.feedResponse[postIndex].commentList = commentList;
+              const reversedCommentList = commentList.reverse();
+
+              console.log(postIndex, useFeed.feedResponse[postIndex]);
+              console.log(reversedCommentList, useFeed.feedResponse[postIndex]);
+              useFeed.feedResponse[postIndex].commentList = reversedCommentList;
+              
+            } else {
+              console.error(`Post with postId ${postId} not found in data array`);
+            }
+          },
+          (error) => {
+            console.error("Error during fetch:", error);
+          }
+        );
+      } catch (error) {
+        console.error("Error outside of fetch:", error);
+      }
+    };
 
     const addLike = async (postId, userId) => {
       const likeDto = {
-        // userId: cookies.get("userId"),
-        userId: "57a560f9-3233-43fe-bc5f-9dd881761451",
+        userId: cookies.get("userId"),
+        // userId: "57a560f9-3233-43fe-bc5f-9dd881761451",
         postId: postId,
       };
 
       const activityDto = {
         userId: userId,
-        // friendUserId: cookies.get("userId"),
-        friendUserId: "57a560f9-3233-43fe-bc5f-9dd881761451",
+        friendUserId: cookies.get("userId"),
+        // friendUserId: "57a560f9-3233-43fe-bc5f-9dd881761451",
         type: "like",
       };
       // handleLike(likeDto)
@@ -184,6 +212,7 @@ export default {
           (jsonResponse) => {
             console.log("Successfully commented", jsonResponse);
             getCommentCountByPostId(commentDto.postId)
+            getCommentByPost(commentDto.postId)
           },
           () => {
             console.error("Failed to add Comment");
