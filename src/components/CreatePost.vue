@@ -1,7 +1,7 @@
 <template>
   <NavBar />
-  <div style="display: flex">
-    <div style="margin-top: 15rem; margin-right: 15rem"><AdCard /></div>
+  <div class="home-page">
+    <div class="adcard1"><AdCard /></div>
     <div>
       <center style="padding-top: 8rem">
         <div class="head max-w-lg mt-3">
@@ -47,13 +47,26 @@
         </div>
       </center>
     </div>
-    <div style="margin-top: 15rem; margin-left: 15rem"><AdCard /></div>
+    <div class="adcard2"><AdCard /></div>
   </div>
 </template>
 
 <script src="../js/createpost"></script>
 
 <style scoped>
+.home-page {
+  display: flex;
+}
+
+.adcard1 {
+  margin-top: 15rem;
+  margin-right: 15rem;
+}
+
+.adcard2 {
+  margin-top: 15rem;
+  margin-left: 15rem;
+}
 .head {
   background-color: #2d3748;
   color: white;
@@ -124,7 +137,7 @@ button:hover {
   background-color: #2e3a52;
 }
 
-@media only screen and (max-width: 768px) {
+/* @media only screen and (max-width: 768px) {
   .create-post {
     flex-direction: row;
     justify-content: space-around;
@@ -140,8 +153,8 @@ button:hover {
   button {
     margin-top: 30px;
   }
-}
-
+} */
+/* 
 @media only screen and (max-width: 1024px) {
   .create-post {
     flex-direction: row;
@@ -157,6 +170,24 @@ button:hover {
   }
   .media-input {
     margin-left: 35px;
+  }
+} */
+@media screen and (max-width: 768px) {
+  .home-page {
+    display: flex;
+    flex-direction: column;
+  }
+  .adcard1 {
+    /* margin-top: 8rem; */
+    margin-top: 8rem;
+    margin-right: 0rem;
+    display: flex;
+    justify-content: center;
+  }
+  .adcard2 {
+    margin: 0rem;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

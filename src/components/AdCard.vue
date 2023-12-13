@@ -37,4 +37,4 @@
   </div>
 </template>
 <script src="../js/adcard"></script>
-<style></style>
+<style scoped></style>
