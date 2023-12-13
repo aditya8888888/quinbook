@@ -17,6 +17,11 @@ export default {
       showComment.value = !showComment.value;
     };
 
+    const callAnalytics = async (dataDto) => {
+      console.log(dataDto);
+      await useFeed.postData(dataDto);
+    };
+
     const activity = async (ActivityDto) => {
       const url = "http://10.20.2.122:8080/activity/add-activity";
       const payload = {
@@ -212,10 +217,22 @@ export default {
         // friendUserId: "57a560f9-3233-43fe-bc5f-9dd881761451",
         type: "like",
       };
+
+      const dataDto = {
+        category: "animal",
+        eventType: "like",
+        postId: postId,
+        serviceApp: "facebook",
+        primaryUser: cookies.get("userId"),
+        secondaryUser: "",
+      };
+
       // handleLike(likeDto)
       // removeLikeById(likeDto)
+
       await activity(activityDto);
       await handleToggleLike(likeDto);
+      await callAnalytics(dataDto);
 
       // getLikeCountByPostId(likeDto)
     };
@@ -257,9 +274,18 @@ export default {
         friendUserId: cookies.get("userId"),
         type: "comment",
       };
+      const dataDto = {
+        category: "food",
+        eventType: "comment",
+        postId: postId,
+        serviceApp: "facebook",
+        primaryUser: cookies.get("userId"),
+        secondaryUser: "",
+      };
 
       await activity(activityDto);
       await comment(commentDto);
+      await callAnalytics(dataDto);
     };
 
     onBeforeMount(() => {
