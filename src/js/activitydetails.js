@@ -1,10 +1,13 @@
 import { ref, onBeforeMount } from "vue";
 import NavBar from "../components/NavBar.vue";
+import { useCookies } from "vue3-cookies";
+
 
 export default {
   components: { NavBar },
   setup() {
     const activity = ref([]);
+    const { cookies}  = useCookies()
 
     const getActivityDetails = async (userId) => {
       const url = `http://10.20.2.122:8080/activity/get-activity-by-id?userId=${userId}`;
@@ -20,7 +23,7 @@ export default {
     };
 
     onBeforeMount(() => {
-      const userId = "0056b7c3-1387-4443-a2a7-5f0ff7ee07a3";
+      const userId = cookies.get("userId");
       getActivityDetails(userId);
     });
 

@@ -1,12 +1,13 @@
 import useFeedStore from "@/store/feed-store";
 import { FETCH_UTIL } from "@/util/fetch-util";
 import { computed, onBeforeMount, ref } from "vue";
+import { useCookies } from "vue3-cookies";
 
 export default {
   component: {},
   setup() {
     const showComment = ref(false);
-
+    const {cookies} = useCookies()
     const useProfileFeed = useFeedStore();
 
     const profileData = computed(() => useProfileFeed.feedUserProfileResponse);
@@ -34,7 +35,7 @@ export default {
     };
 
     onBeforeMount(() => {
-      const userId = "6f83ed2e-370b-4f7a-9a51-1a76ad6a9566";
+      const userId = cookies.get('userId');
       getUserProfileFeed(userId);
     });
 

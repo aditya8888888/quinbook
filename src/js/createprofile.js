@@ -4,7 +4,10 @@ import { useCookies } from "vue3-cookies";
 // import { defineComponent } from "vue"
 import storage from "@/js/fireBase.js";
 import { ref } from "vue";
-import router from "@/router";
+import { useRouter } from "vue-router";
+import useFeedStore from "@/store/feed-store";
+
+
 
 // import { reactive } from "vue";
 
@@ -13,13 +16,14 @@ import router from "@/router";
 export default {
     setup() {
 
+        const feedStore = useFeedStore()
         const selectedFile = ref(null);
         const userName = ref('')
         const userBio = ref('')
         const userProfilePic = ref('')
         const userIsPrivate = ref(false)
         const userAccountType = ref('')
-
+        const router = useRouter()
         const { cookies } = useCookies()
         // const registerUser = () => {
 
@@ -63,6 +67,8 @@ export default {
                     console.log(url);
 
                     // Update the imageUrl.value
+
+                    feedStore.profilePicUrl = url;
                     userProfilePic.value = url;
                 }
             } catch (error) {
@@ -83,9 +89,12 @@ export default {
                     "POST",
                     (jsonResponse) => {
                         console.log("User Add", jsonResponse);
+                        alert("User uploaded");
+                        router.push('/homepage')
                     },
-                    () => {
+                    (error) => {
                         console.error("Failed to add the user");
+                        alert("Problem in creating user", error)
                     }
                 );
             } catch (error) {
@@ -107,10 +116,10 @@ export default {
                 userAccountType: userAccountType.value
             };
 
-            const response = await uploadUser(userDto); // Wait for uploadPost to complete
+            await uploadUser(userDto); // Wait for uploadPost to complete
 
-            alert("User uploaded");
-            router.push('/homepage')
+            // alert("User uploaded");
+            // router.push('/homepage')
         };
 
 

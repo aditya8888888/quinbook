@@ -6,6 +6,8 @@ import UserPostCard from "../components/UserPostCard.vue";
 import userProfileStore from "../store/user-store";
 import { useRouter } from "vue-router";
 import AdCard from "@/components/AdCard.vue";
+import { useCookies } from "vue3-cookies";
+
 export default {
   components: {
     // PostCard,
@@ -14,6 +16,7 @@ export default {
     AdCard,
   },
   setup() {
+    const {cookies} = useCookies()
     const router = useRouter();
     const userStore = userProfileStore();
     const userData = computed(() => userStore.userResponse);
@@ -46,7 +49,7 @@ export default {
     };
 
     onBeforeMount(() => {
-      const userId = "6f83ed2e-370b-4f7a-9a51-1a76ad6a9566";
+      const userId = cookies.get('userId');
       getUserDetails(userId);
     });
 

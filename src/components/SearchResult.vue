@@ -9,6 +9,7 @@
         class="flex items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 m-3 p-1"
         style="max-width: 20rem"
       >
+
         <img
           class="h-8 w-8 rounded-2xl ml-3"
           :src="data.userProfilePic"

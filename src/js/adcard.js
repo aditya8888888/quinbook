@@ -1,11 +1,13 @@
 import NavBar from "@/components/NavBar.vue";
 import { onBeforeMount, ref } from "vue";
+import { useCookies } from "vue3-cookies";
 
 export default {
   components: {
     NavBar,
   },
   setup() {
+    const { cookies} = useCookies()
     const ads = ref([]);
     const getAds = async (userId) => {
       const url = `http://10.20.4.27:8082/ad/getAd?userId=${userId}`;
@@ -19,7 +21,7 @@ export default {
       }
     };
     onBeforeMount(() => {
-      const userId = "CbRifGKnhxXDOlMc0ReGlzENc2q1";
+      const userId = cookies.get("userId");
       getAds(userId);
       //   getFriendRequests(userId);
     });

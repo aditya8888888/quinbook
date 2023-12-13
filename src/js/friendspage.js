@@ -1,6 +1,8 @@
 import NavBar from "@/components/NavBar.vue";
 import { onBeforeMount, ref } from "vue";
 import AdCard from "@/components/AdCard.vue";
+import { useCookies } from "vue3-cookies";
+
 
 export default {
   components: {
@@ -9,6 +11,7 @@ export default {
   },
   setup() {
     const friends = ref([]);
+    const { cookies } = useCookies()
     const getFriendDetails = async (userId) => {
       const url = `http://10.20.2.122:8080/user/get-friend-details?userId=${userId}`;
       try {
@@ -20,7 +23,7 @@ export default {
       }
     };
     onBeforeMount(() => {
-      const userId = "0056b7c3-1387-4443-a2a7-5f0ff7ee07a3";
+      const userId = cookies.get('userId');
       getFriendDetails(userId);
       //   getFriendRequests(userId);
     });
@@ -36,7 +39,7 @@ export default {
       }
     };
     onBeforeMount(() => {
-      const userId = "0056b7c3-1387-4443-a2a7-5f0ff7ee07a3";
+      const userId = cookies.get('userId')
       //   getFriendDetails(userId);
       getFriendRequests(userId);
     });
@@ -56,18 +59,25 @@ export default {
       }
     };
 
-    const acceptrequest = (requestedId) => {
-      const userId = "0056b7c3-1387-4443-a2a7-5f0ff7ee07a3";
+    const acceptRequest = async (requestedId) => {
+      const userId = cookies.get('userId'); // Assuming cookies is properly imported
       console.log(userId, requestedId);
-      getAcceptRequests(userId, requestedId);
+      await getAcceptRequests(userId, requestedId);
       window.location.reload();
     };
+
+    // const acceptRequest = (requestedId) => {
+    //   const userId = cookies.get('userId');
+    //   console.log(userId, requestedId);
+    //   getAcceptRequests(userId, requestedId);
+    //   window.location.reload();
+    // };
     return {
       friends,
       friendrequests,
       friendacceptrequests,
       getAcceptRequests,
-      acceptrequest,
+      acceptRequest,
     };
   },
 };

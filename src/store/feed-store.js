@@ -7,6 +7,7 @@ const useFeedStore = defineStore("feed", () => {
   const totalLikeCount = ref(0);
   const commentResponse = ref([]);
   const userProfileResponse = ref([]);
+  const profilePicUrl = ref('')
 
   return {
     feedResponse,
@@ -14,6 +15,7 @@ const useFeedStore = defineStore("feed", () => {
     commentResponse,
     userProfileResponse,
     feedUserProfileResponse,
+    profilePicUrl 
   };
 });
 export default useFeedStore;

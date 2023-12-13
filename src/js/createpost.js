@@ -2,7 +2,7 @@ import { ref } from "vue";
 import NavBar from "@/components/NavBar.vue";
 import { FETCH_UTIL } from "@/util/fetch-util";
 import AdCard from "@/components/AdCard.vue";
-// import { useCookies } from "vue3-cookies";
+import { useCookies } from "vue3-cookies";
 // import useFeedStore from "@/store/feed-store";
 
 import storage from "@/js/fireBase.js";
@@ -13,7 +13,7 @@ export default {
     AdCard,
   },
   setup() {
-    // const { cookies } = useCookies();
+    const { cookies } = useCookies();
     const selectedFile = ref(null);
     const caption = ref("");
     const imageUrl = ref("");
@@ -68,8 +68,11 @@ export default {
           "POST",
           (jsonResponse) => {
             console.log(jsonResponse);
+            alert("Media uploaded");
+            router.push("/homepage");
           },
-          () => {
+          (error) => {
+            alert("failed to post the user",error.message)
             console.error("Failed to post the user");
           }
         );
@@ -83,7 +86,7 @@ export default {
       console.log("hffhfh" + imageUrl.value);
 
       const postDto = {
-        userId: "e2045ec8-8ac1-421d-a4d4-f640f427639a", // cookies.get('userId'),
+        userId: cookies.get('userId'),
         caption: caption.value,
         media: imageUrl.value,
         mediaType: "Image",
@@ -92,8 +95,8 @@ export default {
       console.log(postDto.media);
       await uploadPost(postDto); // Wait for uploadPost to complete
 
-      alert("Media uploaded");
-      router.push("/homepage");
+      // alert("Media uploaded");
+      // router.push("/homepage");
     };
 
     return {

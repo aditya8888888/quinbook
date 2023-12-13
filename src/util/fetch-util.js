@@ -22,6 +22,6 @@ export const FETCH_UTIL = async (
     const jsonResponse = await response.json();
     successCallback(jsonResponse);
   } catch (error) {
-    failCallback();
+    failCallback(error);
   }
 };

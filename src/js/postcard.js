@@ -1,24 +1,24 @@
 import useFeedStore from "@/store/feed-store";
 import { FETCH_UTIL } from "@/util/fetch-util";
 import { computed, onBeforeMount, ref } from "vue";
+import { useCookies } from "vue3-cookies";
 
 export default {
   component: {},
   setup() {
+    const { cookies } = useCookies()
     const showComment = ref(false);
     const commentDescription = ref("");
     const useFeed = useFeedStore();
-    const feed = computed(() => useFeed.feedResponse);
-    console.log(feed);
+    const data = computed(() => useFeed.feedResponse);
+    console.log(data);
 
     const openComments = async () => {
       showComment.value = !showComment.value;
     };
 
-    const likeCount = ref(0);
-
     const activity = async (ActivityDto) => {
-      const url = "http://localhost:8080/activity/add-activity";
+      const url = "http://10.20.2.122:8080/activity/add-activity";
       const payload = {
         value: ActivityDto,
       };
@@ -61,80 +61,117 @@ export default {
       }
     };
 
-    const handleToggleLike = async (likeDto) => {
-      debugger;
-      const url = "http://localhost:8081/like/toggle-like";
 
+    const handleToggleLike = async (likeDto) => {
+      // debugger;
+      const url = "http://10.20.3.178:8081/like/toggle-like";
       const payload = {
         value: likeDto,
       };
-
       try {
-        await FETCH_UTIL(
-          url,
-          payload,
-          "PUT",
+        await FETCH_UTIL(url, payload, "PUT",
           (jsonResponse) => {
             console.log("Successfully added like:", jsonResponse);
-            // console.log(likeDto.postId);
             getLikeCountByPostId(likeDto.postId);
-            // setActivity({
-            //   userId: userId,
-            //   friendUserId: "57a560f9-3233-43fe-bc5f-9dd881761451",
-            //   type: "like"
-            // })
           },
-          () => {
-            console.error("Failed to add like");
+          (error) => {
+            console.error("Failed to add like", error);
           }
         );
       } catch (error) {
         console.error("Error during fetch:", error);
       }
     };
+
+    // const getLikeCountByPostId = async (postId) => {
+    //   const url = `http://localhost:8081/like/like-count-by-post?postId=${postId}`; // Replace with your actual API endpoint
+
+    //   try {
+    //     await FETCH_UTIL(
+    //       url,
+    //       {},
+    //       "GET",
+    //       (jsonResponse) => {
+    //         useFeed.totalLikeCount = jsonResponse;
+    //         console.log(jsonResponse);
+    //       },
+    //       () => {
+    //         console.error("Failed to get like count");
+    //       }
+    //     );
+    //   } catch (error) {
+    //     console.error("Error during fetch:", error);
+    //   }
+    // };
 
     const getLikeCountByPostId = async (postId) => {
-      const url = `http://localhost:8081/like/like-count-by-post?postId=${postId}`; // Replace with your actual API endpoint
-
+      const url = `http://10.20.3.178:8081/like/like-count-by-post?postId=${postId}`;
       try {
-        await FETCH_UTIL(
-          url,
-          {},
-          "GET",
-          (jsonResponse) => {
-            useFeed.totalLikeCount = jsonResponse;
-            console.log(jsonResponse);
+        await FETCH_UTIL(url, {}, "GET",
+          (likeCount) => {
+            const postIndex = data.value.findIndex((post) => post.postId === postId);
+            if (postIndex !== -1) {
+              console.log(postIndex, useFeed.feedResponse[postIndex])
+              useFeed.feedResponse[postIndex].likeCount = likeCount;
+            } else {
+              console.error(`Post with postId ${postId} not found in data array`);
+            }
           },
-          () => {
-            console.error("Failed to get like count");
+          (error) => {
+            console.error("Error during fetch:", error);
           }
         );
       } catch (error) {
-        console.error("Error during fetch:", error);
+        console.error("Error outside of fetch:", error);
       }
     };
 
-    const addLike = (postId, userId) => {
+    const getCommentCountByPostId = async (postId) => {
+      const url = `http://10.20.3.178:8081/comment/comment-count-by-post?postId=${postId}`;
+      try {
+        await FETCH_UTIL(url, {}, "GET",
+          (commentCount) => {
+            const postIndex = data.value.findIndex((post) => post.postId === postId);
+            if (postIndex !== -1) {
+              console.log(postIndex, useFeed.feedResponse[postIndex])
+              useFeed.feedResponse[postIndex].commentCount = commentCount;
+            } else {
+              console.error(`Post with postId ${postId} not found in data array`);
+            }
+          },
+          (error) => {
+            console.error("Error during fetch:", error);
+          }
+        );
+      } catch (error) {
+        console.error("Error outside of fetch:", error);
+      }
+    };
+
+
+    const addLike = async (postId, userId) => {
       const likeDto = {
-        userId: "57a560f9-3233-43fe-bc5f-9dd881761451", //cookies.get("userId"),
+        // userId: cookies.get("userId"),
+        userId: "57a560f9-3233-43fe-bc5f-9dd881761451",
         postId: postId,
       };
 
       const activityDto = {
         userId: userId,
+        // friendUserId: cookies.get("userId"),
         friendUserId: "57a560f9-3233-43fe-bc5f-9dd881761451",
         type: "like",
       };
       // handleLike(likeDto)
       // removeLikeById(likeDto)
-      activity(activityDto);
-      handleToggleLike(likeDto);
+      await activity(activityDto);
+      await handleToggleLike(likeDto);
 
       // getLikeCountByPostId(likeDto)
     };
 
     const comment = async (commentDto) => {
-      const url = "http://localhost:8081/comment";
+      const url = "http://10.20.3.178:8081/comment";
       const payload = {
         value: commentDto,
       };
@@ -146,6 +183,7 @@ export default {
           "POST",
           (jsonResponse) => {
             console.log("Successfully commented", jsonResponse);
+            getCommentCountByPostId(commentDto.postId)
           },
           () => {
             console.error("Failed to add Comment");
@@ -156,25 +194,26 @@ export default {
       }
     };
 
-    const addComment = (postId, userId) => {
+    const addComment = async (postId, userId) => {
       const commentDto = {
-        userId: "57a560f9-3233-43fe-bc5f-9dd881761451",
+        userId: cookies.get("userId"),
         postId: postId,
         commentDescription: commentDescription.value,
       };
 
       const activityDto = {
         userId: userId,
-        friendUserId: "57a560f9-3233-43fe-bc5f-9dd881761451", //cookies.get("userId"),
+        friendUserId: cookies.get("userId"),
         type: "comment",
       };
 
-      activity(activityDto);
-      comment(commentDto);
+      await activity(activityDto);
+      await comment(commentDto);
     };
 
     onBeforeMount(() => {
-      const userId = "57a560f9-3233-43fe-bc5f-9dd881761451";
+      const userId = cookies.get('userId');
+      // const userId = "57a560f9-3233-43fe-bc5f-9dd881761451"
       getFeed(userId);
     });
     const formatTimeAgo = (timestamp) => {
@@ -197,10 +236,9 @@ export default {
     return {
       showComment,
       openComments,
-      feed,
+      data,
       useFeed,
       addLike,
-      likeCount,
       addComment,
       commentDescription,
       formatTimeAgo,

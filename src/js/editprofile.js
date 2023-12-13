@@ -4,7 +4,8 @@ import { useCookies } from "vue3-cookies";
 // import { defineComponent } from "vue"
 import storage from "@/js/fireBase.js";
 import { ref } from "vue";
-import router from "@/router";
+import { useRouter } from "vue-router";
+
 
 // import { reactive } from "vue";
 
@@ -19,7 +20,7 @@ export default {
         const userProfilePic = ref('')
         const userIsPrivate = ref(false)
         const userAccountType = ref('')
-
+        const router = useRouter()
         const { cookies } = useCookies()
         // const registerUser = () => {
 
@@ -83,9 +84,12 @@ export default {
                     "PUT",
                     (jsonResponse) => {
                         console.log("User Add", jsonResponse);
+                        alert("User Updated");
+                        router.push('/profilepage')
                     },
-                    () => {
+                    (error) => {
                         console.error("Failed to add the user");
+                        alert("Failed to update user details", error)
                     }
                 );
             } catch (error) {
@@ -98,7 +102,7 @@ export default {
             console.log("hffhfh" + userProfilePic.value);
 
             const userDto = {
-                userId: "1164f27d-c763-438c-adb0-8a6d8e733e3a",
+                userId: cookies.get('userId'),
                 userEmail: cookies.get('userEmail'),
                 userName: userName.value,
                 userBio: userBio.value,
@@ -109,12 +113,9 @@ export default {
 
             await uploadUser(userDto); // Wait for uploadPost to complete
 
-            alert("User Updated");
-            router.push('/profilepage')
+            // alert("User Updated");
+            // router.push('/profilepage')
         };
-
-
-
 
         return {
             updateUser,

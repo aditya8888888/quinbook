@@ -2,6 +2,7 @@ import { computed, onBeforeMount, onMounted, ref } from "vue";
 import NavBar from "../components/NavBar.vue";
 import useSearchStore from "@/store/search-store";
 import { FETCH_UTIL } from "@/util/fetch-util";
+import { useCookies } from "vue3-cookies";
 
 export default {
   components: {
@@ -9,6 +10,7 @@ export default {
   },
 
   setup() {
+    const {cookies} = useCookies()
     const useSearch = useSearchStore();
     const searchdata = computed(() => useSearch.searchResponse);
     console.log(searchdata);
@@ -34,7 +36,7 @@ export default {
       //   localStorage.setItem("text", "");
     };
     onBeforeMount(() => {
-      const userId = "0056b7c3-1387-4443-a2a7-5f0ff7ee07a3";
+      const userId = cookies.get('userId');
       const searchtext = localStorage.getItem("text");
       //   getFriendDetails(userId);
       getResults(searchtext, userId);
@@ -59,7 +61,7 @@ export default {
 
     const acceptrequest = (requestedId) => {
       console.log("I am entering");
-      const userId = "0056b7c3-1387-4443-a2a7-5f0ff7ee07a3";
+      const userId = cookies.get('userId');
       console.log(userId, requestedId);
       getAcceptRequests(userId, requestedId);
       //   window.location.reload();
@@ -67,7 +69,7 @@ export default {
 
     const friendrequests = ref([]);
     const sendFriendRequests = async (personId) => {
-      const userId = "0056b7c3-1387-4443-a2a7-5f0ff7ee07a3";
+      const userId = cookies.get('userId');
       const url = `http://10.20.2.122:8080/user/send-request?userId=${userId}&requestedId=${personId}`;
       const d = {
         method: "PUT",

@@ -30,7 +30,7 @@
                   type="button"
                   class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                   style="margin-right: 10px"
-                  @click="acceptrequest(friendrequest.userId)"
+                  @click="acceptRequest(friendrequest.userId)"
                 >
                   <svg
                     class="w-[14px] h-[14px] text-white-800 dark:text-white"

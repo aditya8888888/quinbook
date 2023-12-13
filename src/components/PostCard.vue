@@ -2,6 +2,7 @@
   <center>
     <!-- {{ data }} -->
     <div v-for="(post, index) in data" :key="index" style="padding-top: 8rem">
+      <!-- {{ post }} -->
       <div v-if="post.mediaType === 'Video'">
         <div
           style="margin-top: 10px"
@@ -71,7 +72,7 @@
                 <div @click="addLike(post.postId, post.userId)">
                   Like &nbsp;
                 </div>
-                {{ post.likeCount }}{{ likeCount }}
+                {{ post.likeCount }}
               </div>
               <div
                 style="display: flex; cursor: pointer"
@@ -99,7 +100,7 @@
                 </div>
               </div>
             </div>
-            <form class="pt-4">
+            <form @submit.prevent class="pt-4">
               <div
                 class="w-full mb-1 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
               >
@@ -118,7 +119,6 @@
                   class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600"
                 >
                   <button
-                    type="submit"
                     class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-gray-700 rounded-lg focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-900 hover:bg-gray-800"
                     @click="addComment(post.postId, post.userId)"
                   >
@@ -226,7 +226,7 @@
                   </svg>
                 </div>
                 <div @click="addLike(post.postId, post.userId)">
-                  Like &nbsp; {{ post.likeCount }}{{ likeCount }}
+                  Like &nbsp; {{ post.likeCount }}
                 </div>
               </div>
               <div
@@ -255,7 +255,7 @@
                 </div>
               </div>
             </div>
-            <form class="pt-4">
+            <form @submit.prevent class="pt-4">
               <div
                 class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
               >
@@ -274,7 +274,6 @@
                   class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600"
                 >
                   <button
-                    type="submit"
                     class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-gray-700 rounded-lg focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-900 hover:bg-gray-800"
                     @click="addComment(post.postId, post.userId)"
                   >
