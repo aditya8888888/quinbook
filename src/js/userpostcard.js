@@ -7,10 +7,12 @@ export default {
   component: {},
   setup() {
     const showComment = ref(false);
-    const {cookies} = useCookies()
+    const { cookies } = useCookies();
     const useProfileFeed = useFeedStore();
 
-    const profileData = computed(() => useProfileFeed.feedUserProfileResponse);
+    const profileData = computed(() =>
+      useProfileFeed.feedUserProfileResponse.reverse()
+    );
     console.log(profileData);
 
     const getUserProfileFeed = async (userId) => {
@@ -35,18 +37,35 @@ export default {
     };
 
     onBeforeMount(() => {
-      const userId = cookies.get('userId');
+      const userId = cookies.get("userId");
       getUserProfileFeed(userId);
     });
 
     const openComments = async () => {
       showComment.value = !showComment.value;
     };
+    const formatTimeAgo = (timestamp) => {
+      const now = new Date();
+      const postTime = new Date(timestamp);
+      const timeDifference = now - postTime;
+      const seconds = Math.floor(timeDifference / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+
+      if (hours > 0) {
+        return `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
+      } else if (minutes > 0) {
+        return `${minutes} ${minutes === 1 ? "minute" : "minutes"} ago`;
+      } else {
+        return `${seconds} ${seconds === 1 ? "second" : "seconds"} ago`;
+      }
+    };
 
     return {
       showComment,
       openComments,
       profileData,
+      formatTimeAgo,
     };
   },
 };

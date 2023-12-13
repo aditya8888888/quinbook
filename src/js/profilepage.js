@@ -16,7 +16,7 @@ export default {
     AdCard,
   },
   setup() {
-    const {cookies} = useCookies()
+    const { cookies } = useCookies();
     const router = useRouter();
     const userStore = userProfileStore();
     const userData = computed(() => userStore.userResponse);
@@ -49,7 +49,7 @@ export default {
     };
 
     onBeforeMount(() => {
-      const userId = cookies.get('userId');
+      const userId = cookies.get("userId");
       getUserDetails(userId);
     });
 

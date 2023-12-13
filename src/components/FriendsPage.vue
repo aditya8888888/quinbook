@@ -1,7 +1,7 @@
 <template>
   <NavBar />
-  <div style="display: flex">
-    <div style="margin-top: 15rem; margin-right: 15rem"><AdCard /></div>
+  <div class="home-page">
+    <div class="adcard1"><AdCard /></div>
     <div>
       <center style="padding-top: 8rem">
         <h2
@@ -97,9 +97,42 @@
         </div>
       </center>
     </div>
-    <div style="margin-top: 15rem; margin-left: 15rem"><AdCard /></div>
+    <div class="adcard2"><AdCard /></div>
   </div>
 </template>
 
 <script src="../js/friendspage"></script>
-<style scoped></style>
+<style scoped>
+.home-page {
+  display: flex;
+  justify-content: space-around;
+}
+
+.adcard1 {
+  margin-top: 15rem;
+  margin-right: 15rem;
+}
+
+.adcard2 {
+  margin-top: 15rem;
+  margin-left: 15rem;
+}
+@media screen and (max-width: 768px) {
+  .home-page {
+    display: flex;
+    flex-direction: column;
+  }
+  .adcard1 {
+    /* margin-top: 8rem; */
+    margin-top: 8rem;
+    margin-right: 0rem;
+    display: flex;
+    justify-content: center;
+  }
+  .adcard2 {
+    margin: 0rem;
+    display: flex;
+    justify-content: center;
+  }
+}
+</style>

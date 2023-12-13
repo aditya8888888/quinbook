@@ -1,7 +1,7 @@
 <template>
-  <NavBar />
-  <div style="display: flex">
-    <div style="margin-top: 15rem; margin-right: 15rem"><AdCard /></div>
+  <div class="home-page">
+    <NavBar />
+    <div class="adcard1"><AdCard /></div>
     <div>
       <center style="padding-top: 8rem">
         <div
@@ -53,12 +53,25 @@
         <UserPostCard />
       </center>
     </div>
-    <div style="margin-top: 15rem; margin-left: 15rem"><AdCard /></div>
+    <div class="adcard2"><AdCard /></div>
   </div>
 </template>
 <script src="../js/profilepage"></script>
 <style scoped>
-.profile-page {
+.home-page {
+  display: flex;
+}
+
+.adcard1 {
+  margin-top: 15rem;
+  margin-right: 15rem;
+}
+
+.adcard2 {
+  margin-top: 15rem;
+  margin-left: 15rem;
+}
+/* .profile-page {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -115,7 +128,7 @@
   gap: 20px;
   margin-top: 20px;
   width: 100%;
-}
+} */
 .post-card {
   display: flex;
   background-color: #ffffff;
@@ -124,11 +137,8 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-style: solid;
   border-color: black;
-  /* transition: box-shadow 0.3s ease; */
 }
-/* .post-card:hover{
-    transition: box-shadow 0.3s ease
-} */
+
 .post-user-image {
   width: 50px;
   height: 50px;
@@ -163,5 +173,23 @@
   display: flex;
   gap: 10px;
   margin-top: 10px;
+}
+@media screen and (max-width: 768px) {
+  .home-page {
+    display: flex;
+    flex-direction: column;
+  }
+  .adcard1 {
+    /* margin-top: 8rem; */
+    margin-top: 8rem;
+    margin-right: 0rem;
+    display: flex;
+    justify-content: center;
+  }
+  .adcard2 {
+    margin: 0rem;
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>

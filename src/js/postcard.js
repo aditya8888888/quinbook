@@ -6,11 +6,11 @@ import { useCookies } from "vue3-cookies";
 export default {
   component: {},
   setup() {
-    const { cookies } = useCookies()
+    const { cookies } = useCookies();
     const showComment = ref(false);
     const commentDescription = ref("");
     const useFeed = useFeedStore();
-    const data = computed(() => useFeed.feedResponse);
+    const data = computed(() => useFeed.feedResponse.reverse());
     console.log(data);
 
     const openComments = async () => {
@@ -61,7 +61,6 @@ export default {
       }
     };
 
-
     const handleToggleLike = async (likeDto) => {
       // debugger;
       const url = "http://10.20.3.178:8081/like/toggle-like";
@@ -69,7 +68,10 @@ export default {
         value: likeDto,
       };
       try {
-        await FETCH_UTIL(url, payload, "PUT",
+        await FETCH_UTIL(
+          url,
+          payload,
+          "PUT",
           (jsonResponse) => {
             console.log("Successfully added like:", jsonResponse);
             getLikeCountByPostId(likeDto.postId);
@@ -107,14 +109,21 @@ export default {
     const getLikeCountByPostId = async (postId) => {
       const url = `http://10.20.3.178:8081/like/like-count-by-post?postId=${postId}`;
       try {
-        await FETCH_UTIL(url, {}, "GET",
+        await FETCH_UTIL(
+          url,
+          {},
+          "GET",
           (likeCount) => {
-            const postIndex = data.value.findIndex((post) => post.postId === postId);
+            const postIndex = data.value.findIndex(
+              (post) => post.postId === postId
+            );
             if (postIndex !== -1) {
-              console.log(postIndex, useFeed.feedResponse[postIndex])
+              console.log(postIndex, useFeed.feedResponse[postIndex]);
               useFeed.feedResponse[postIndex].likeCount = likeCount;
             } else {
-              console.error(`Post with postId ${postId} not found in data array`);
+              console.error(
+                `Post with postId ${postId} not found in data array`
+              );
             }
           },
           (error) => {
@@ -129,14 +138,21 @@ export default {
     const getCommentCountByPostId = async (postId) => {
       const url = `http://10.20.3.178:8081/comment/comment-count-by-post?postId=${postId}`;
       try {
-        await FETCH_UTIL(url, {}, "GET",
+        await FETCH_UTIL(
+          url,
+          {},
+          "GET",
           (commentCount) => {
-            const postIndex = data.value.findIndex((post) => post.postId === postId);
+            const postIndex = data.value.findIndex(
+              (post) => post.postId === postId
+            );
             if (postIndex !== -1) {
-              console.log(postIndex, useFeed.feedResponse[postIndex])
+              console.log(postIndex, useFeed.feedResponse[postIndex]);
               useFeed.feedResponse[postIndex].commentCount = commentCount;
             } else {
-              console.error(`Post with postId ${postId} not found in data array`);
+              console.error(
+                `Post with postId ${postId} not found in data array`
+              );
             }
           },
           (error) => {
@@ -148,18 +164,17 @@ export default {
       }
     };
 
-
     const addLike = async (postId, userId) => {
       const likeDto = {
-        // userId: cookies.get("userId"),
-        userId: "57a560f9-3233-43fe-bc5f-9dd881761451",
+        userId: cookies.get("userId"),
+        // userId: "57a560f9-3233-43fe-bc5f-9dd881761451",
         postId: postId,
       };
 
       const activityDto = {
         userId: userId,
-        // friendUserId: cookies.get("userId"),
-        friendUserId: "57a560f9-3233-43fe-bc5f-9dd881761451",
+        friendUserId: cookies.get("userId"),
+        // friendUserId: "57a560f9-3233-43fe-bc5f-9dd881761451",
         type: "like",
       };
       // handleLike(likeDto)
@@ -183,7 +198,7 @@ export default {
           "POST",
           (jsonResponse) => {
             console.log("Successfully commented", jsonResponse);
-            getCommentCountByPostId(commentDto.postId)
+            getCommentCountByPostId(commentDto.postId);
           },
           () => {
             console.error("Failed to add Comment");
@@ -212,7 +227,7 @@ export default {
     };
 
     onBeforeMount(() => {
-      const userId = cookies.get('userId');
+      const userId = cookies.get("userId");
       // const userId = "57a560f9-3233-43fe-bc5f-9dd881761451"
       getFeed(userId);
     });
